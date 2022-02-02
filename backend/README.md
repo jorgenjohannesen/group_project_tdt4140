@@ -1,0 +1,3 @@
+# Strapi backend documentation
+
+...
