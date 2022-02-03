@@ -74,15 +74,21 @@ readability for the developer.
 The following is an example of a good commit.
 
 ```txt
-# Title
-
 docs: Add CONTRIBUTING.md
-
-# Description
 
 WHAT: Add documentation for contribution to the code base
 
 WHY: New developers should quickly be able to contribute new code to our code base
+```
+
+### Pair programming and co-authored commits
+
+Code that is produced whilst pair programming must be commited with the observer signed as co-author.
+
+You can still use the commit message template above, but be sure to add the following at the bottom:
+
+```txt
+Co-authored by: <username> <email>
 ```
 
 ## Branches and merge requests
