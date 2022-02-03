@@ -25,14 +25,13 @@ later when cloning the repository.
 
 ## Cloning the repository
 
-When cloning the repository, add your username and access token to the URL in
-the following way:
+When cloning the repository, use the personal access token as your password. I.e. input this in your terminal:
 
 ```sh
-git clone https://<username>:<token>@gitlab.stud.idi.ntnu.no/tdt4140-2022/landsby-4/gruppe_69/group69
+git clone https://gitlab.stud.idi.ntnu.no/tdt4140-2022/landsby-4/gruppe_69/group69.git
 ```
 
-Note how you start the URL with your username and personal access token.
+The terminal will prompt you for your username and password. You input your normal username, and then the token as your password.
 
 ## The way forward
 
