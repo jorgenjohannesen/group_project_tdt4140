@@ -93,6 +93,10 @@ Co-authored by: <username> <email>
 
 ## Branches and merge requests
 
+### The `dev` branch
+
+We aim to push new functionality to the production branch (`main`) after every sprint, i.e. every 2 weeks. In order to not disturb the `main` branch whilst developing new features, the `dev` branch is used as the base branch for development. Hence, all new functionality that is worked on during a sprint is to be branched out from the `dev` branch. At the end of a given sprint, the `dev` branch is merged into `main`.
+
 ### Naming
 
 Branch names should be clear and concise, and be marked with the id number of
