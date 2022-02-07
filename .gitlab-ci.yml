@@ -1,0 +1,6 @@
+image: node:14
+
+test_backend:
+  script:
+    - cd backend && npm install
+    - cd backend && npm run test
