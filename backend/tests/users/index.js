@@ -1,27 +1,27 @@
 const request = require("supertest");
 
-const mockUserData = {
+const MOCK_USER = {
   username: "tester",
   email: "tester@strapi.com",
   provider: "local",
-  password: "1234abc",
+  password: "1234abcd",
   confirmed: true,
   blocked: null,
 };
 
 it("should login user and return jwt token", async () => {
-  /** Creates a new user and save it to the database */
+  // Creates a new user and save it to the database
   await strapi.plugins["users-permissions"].services.user.add({
-    ...mockUserData,
+    ...MOCK_USER,
   });
 
-  await request(strapi.server.httpServer) // app server is an instance of Class: http.Server
+  await request(strapi.server.httpServer)
     .post("/api/auth/local")
     .set("accept", "application/json")
     .set("Content-Type", "application/json")
     .send({
-      identifier: mockUserData.email,
-      password: mockUserData.password,
+      identifier: MOCK_USER.email,
+      password: MOCK_USER.password,
     })
     .expect("Content-Type", /json/)
     .expect(200)
