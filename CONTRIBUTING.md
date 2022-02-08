@@ -83,9 +83,11 @@ WHY: New developers should quickly be able to contribute new code to our code ba
 
 ### Pair programming and co-authored commits
 
-Code that is produced whilst pair programming must be commited with the observer signed as co-author.
+Code that is produced whilst pair programming must be commited with the observer
+signed as co-author.
 
-You can still use the commit message template above, but be sure to add the following at the bottom:
+You can still use the commit message template above, but be sure to add the
+following at the bottom:
 
 ```txt
 Co-authored by: <username> <email>
@@ -95,7 +97,12 @@ Co-authored by: <username> <email>
 
 ### The `dev` branch
 
-We aim to push new functionality to the production branch (`main`) after every sprint, i.e. every 2 weeks. In order to not disturb the `main` branch whilst developing new features, the `dev` branch is used as the base branch for development. Hence, all new functionality that is worked on during a sprint is to be branched out from the `dev` branch. At the end of a given sprint, the `dev` branch is merged into `main`.
+We aim to push new functionality to the production branch (`main`) after every
+sprint, i.e. every 2 weeks. In order to not disturb the `main` branch whilst
+developing new features, the `dev` branch is used as the base branch for
+development. Hence, all new functionality that is worked on during a sprint is
+to be branched out from the `dev` branch. At the end of a given sprint, the
+`dev` branch is merged into `main`.
 
 ### Naming
 
