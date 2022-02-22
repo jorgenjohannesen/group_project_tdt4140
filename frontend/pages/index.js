@@ -26,13 +26,6 @@ const Home = ({ hikes }) => {
                 id,
               } = hike;
 
-              // Destructure photo
-              const {
-                data: {
-                  attributes: { url, height, width },
-                },
-              } = photo;
-
               // TODO: Error handling if any property is not defined
               return (
                 <Grid xs={4}>
@@ -43,12 +36,15 @@ const Home = ({ hikes }) => {
                     }
                     sx={{ maxWidth: 200 }}
                   >
-                    <Image
-                      src={`${BACKEND_URL}${url}`}
-                      height={height}
-                      width={width}
-                      object-fit="cover"
-                    />
+                    {photo.data && (
+                      <Image
+                        src={`${BACKEND_URL}${photo.data.attributes.url}`}
+                        height={photo.data.attributes.height}
+                        width={photo.data.attributes.width}
+                        object-fit="cover"
+                      />
+                    )}
+
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="div">
                         {title}
