@@ -1,0 +1,359 @@
+{
+    "listOfHikes": [
+        {
+            "title": "Wonderland Trail",
+            "description": "Just because this trail circumnavigates, rather than summits, 14,411-foot Mount Rainier, don’t assume it’s an easy walk in Mount Rainier National Park.",
+            "photo": 1,
+            "participants": [
+                2
+            ],
+            "ownedBy": 1
+        },
+        {
+            "title": "Kalalau Trail",
+            "description": "Patience is a virtue when planning to hike this lush, steep trail along Kauai’s famously fluted Na Pali Coast. With its 300-foot-high waterfalls, views to the crashing Pacific, and access to two stunning sand beaches, Hanakapiai and the completely isolated Kalalau, this out-and-back trek is worth every rigorous step.",
+            "photo": 2,
+            "participants": [
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+            ],
+            "ownedBy": 1
+        },
+        {
+            "title": "Camino Primitivo, Camino de Santiago",
+            "description": "There are many paths.",
+            "photo": 3,
+            "participants": [
+                5,
+                6
+            ],
+            "ownedBy": 2
+        },
+        {
+            "title": "South Maroon Peak",
+            "description": "Choosing the best of Colorado’s 59 fourteeners is a little like being forced to pick your favorite child. ",
+            "photo": 4,
+            "participants": [
+                1,
+                3
+            ],
+            "ownedBy": 2
+        },
+        {
+            "title": "Lares Trek",
+            "description": "Slightly shorter in length and higher in altitude that its famous sibling, the Inca Trail, this two-to-three-day trek starts in the village of Lares and traverses the Urubamba mountain range. ",
+            "photo": 5,
+            "participants": [
+                1
+            ],
+            "ownedBy": 3
+        },
+        {
+            "title": "Paine Circuit Trek",
+            "description": "There are other, lesser known wilderness treks in Patagonia, like the Dientes Circuit on Navarino Island and the Las Horquetas Circuit in newly minted Cerro Castillo National Park.",
+            "photo": 6,
+            "participants": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                8,
+                9,
+                10
+            ],
+            "ownedBy": 7
+        },
+        {
+            "title": "Greenstone Ridge Trail",
+            "description": "This is one of the few hikes in the U.S. where it’s entirely possible to see more moose than people, partially because it requires a ferry to even reach the trailhead on the western edge of the least visited national park in the lower 48. Once you’ve arrived at Windigo Harbor, you’ll climb 1,200 feet through lush green boreal forest, topping out at bald ridges before descending to pebble beaches scattered with the semiprecious chlorastrolite for which the trail is named.",
+            "photo": 7,
+            "participants": [
+                8,
+                9
+            ],
+            "ownedBy": 6
+        },
+        {
+            "title": "Buckskin Gulch to Paria Canyon via Wire Pass Trailhead",
+            "description": "There are better-known and more easily accessed slot canyons in Utah, but Buckskin Gulch in the northern section of Paria Canyon–Vermilion Cliffs Wilderness has the distinction of being one of the longest in the world, with uninterrupted narrows for 15 miles that rise up to 500 feet high in places. Start at Wire Pass Trailhead.",
+            "photo": 8,
+            "participants": [
+                1,
+                7
+            ],
+            "ownedBy": 4
+        },
+        {
+            "title": "Tour du Mont Blanc",
+            "description": "Compare French, Italian, and Swiss cuisine while trekking through all three countries on this circuit around 15,781-foot Mont Blanc, the highest peak in Western Europe. ",
+            "photo": 9,
+            "participants": [
+                4,
+                5,
+                6,
+                7
+            ],
+            "ownedBy": 3
+        },
+        {
+            "title": "Old Rag",
+            "description": "So named for its underlying oldness.",
+            "photo": 10,
+            "participants": [
+                1
+            ],
+            "ownedBy": 10
+        },
+        {
+            "title": "Chogoria Route to Point Lenana Peak",
+            "description": "At 17,057 feet, Mount Kenya is Africa’s second-highest peak, but the dormant volcano receives far fewer trekkers than 19,341-foot Kilmanjaro. It also offers more wildlife, like elephants and Cape buffalo, and impressively varied and beautiful terrain, from bamboo rainforests to moors akin to the Scottish Highlands.",
+            "photo": 11,
+            "participants": [
+                2,
+                3,
+                4,
+                5
+            ],
+            "ownedBy": 1
+        },
+        {
+            "title": "Fisherfields Round",
+            "description": "Known as the Great Wilderness, this hike in northwest Scotland tackles the country’s five most remote Munros, peaks of over 3,000 feet with names like Bein a Chlaidheimh and Sgurr Ban. Traversing bogs, heather, grassy slopes, knife-edge ridges, boulders, and scree, you’re in for a quintessential Highlands hike.",
+            "photo": 12,
+            "participants": [],
+            "ownedBy": 2
+        },
+        {
+            "title": "Grand Canyon Rim-to-Rim",
+            "description": "Of the five million people who visit Grand Canyon National Park every year, less than 1 percent make it out alive.",
+            "photo": 13,
+            "participants": [],
+            "ownedBy": 3
+        },
+        {
+            "title": "Mount Washington via Tuckerman Ravine",
+            "description": "First climbed in 1692 by Darby Field and his Abenaki guides, the summit of 6,288-foot Mount Washington is far from an unknown entity. It is, however, a rite of passage for aspiring East Coast mountaineers and deceivingly dangerous, with colder temperatures than Washington’s Mount Rainier and the highest wind speed ever recorded in the United States at 231 miles per hour. Starting at Pinkham Notch Visitor Center, the trail meanders through mixed hardwood forest and over Cutler River bridges before opening up to the glacial cirque of Tuckerman Ravine and a 1.8-mile, above-tree-line scramble over scree to the summit.",
+            "photo": 14,
+            "participants": [],
+            "ownedBy": 4
+        },
+        {
+            "title": "Panorama Ridge",
+            "description": "You could throw a dart at a map of Western Canada and land on a world-class hike, but we finally picked Panorama Ridge as the best route in the region because the nearly 20-mile out-and-back offers such classic, consistent alpine scenery. ",
+            "photo": 15,
+            "participants": [
+                2,
+                3,
+                4
+            ],
+            "ownedBy": 5
+        },
+        {
+            "title": "Three Capes Track",
+            "description": "Of all the amazing walks in Australia, the Three Capes Track on the Tasman Peninsula is the most otherworldly. A 90-minute drive from the state capital of Hobart, it starts with an hourlong boat ride from Port Arthur Historic Site, the eerie 1830s penal colony that once housed the worst criminals in the British Empire.",
+            "photo": 16,
+            "participants": [
+                2
+            ],
+            "ownedBy": 6
+        },
+        {
+            "title": "Teton Crest Trail",
+            "description": "July through September, you’ll be hard-pressed to find a trailhead in Grand Teton National Park that isn’t packed with coach buses. Get, quite literally, above the selfie snappers on this three-to-five-day hike, which traverses not only the park but two national forests (Bridger-Teton and Caribou-Targhee) and the Jedediah Smith Wilderness.",
+            "photo": 17,
+            "participants": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                8,
+                9,
+                10
+            ],
+            "ownedBy": 7
+        },
+        {
+            "title": "Superior Hiking Trail",
+            "description": "This steep, rocky, narrow trail is fun.",
+            "photo": 18,
+            "participants": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                9
+            ],
+            "ownedBy": 8
+        },
+        {
+            "title": "Lycian Way",
+            "description": "Travel through Greek, Roman, and Christian history on a 29-day route that stretches along Turkey’s southern Tekke Peninsula. Comprised of a stone road, mule paths, and footpaths, the well-marked way meanders along the mountainous coastline, dipping into centuries-old ruins and ancient cities along the way. ",
+            "photo": 19,
+            "participants": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+            ],
+            "ownedBy": 9
+        },
+        {
+            "title": "Appalachian Trail",
+            "description": "Of the Appalachian Trail’s 2,200 miles, there’s something extra magical about the 72-mile section through Great Smoky Mountains National Park. It may be the way the mist clings to the ancient ridges and rocky outcrops; the abundance of flaming azaleas, lupines, and rhododendrons; or the knowledge that 6,625-foot Clingman’s Dome is the highest summit along the entire AT. ",
+            "photo": 20,
+            "participants": [
+                2,
+                9
+            ],
+            "ownedBy": 10
+        },
+        {
+            "title": "Whale Trail",
+            "description": "Between June and November its perfect.",
+            "photo": 21,
+            "participants": [
+                2,
+                3,
+                4,
+                5
+            ],
+            "ownedBy": 1
+        },
+        {
+            "title": "Chilkoot Trail",
+            "description": "Though it’s just a fraction of the original 600-mile trek to the Klondike, the first 33-mile section of the Chilkoot—which starts in the Alaskan ghost town of Dyea, summits 3,759-foot Chilkoot Pass, and ends at Bennett Lake, British Columbia—gives hikers a taste of the wild vistas and extreme hardships prospectors experienced during the gold fever of the late 1800s.",
+            "photo": 22,
+            "participants": [],
+            "ownedBy": 2
+        },
+        {
+            "title": "Everest Base Camp via Cho La Pass",
+            "description": "Every year the restrictions on visiting the world’s highest mountain get tighter—and that’s a good thing.",
+            "photo": 23,
+            "participants": [],
+            "ownedBy": 3
+        },
+        {
+            "title": "Kepler Track",
+            "description": "Most of New Zealand’s nine Great Walks are offshoots of ancient Maori trade routes or more recent paths built by pioneers. ",
+            "photo": 24,
+            "participants": [],
+            "ownedBy": 4
+        },
+        {
+            "title": "Half Dome",
+            "description": "As beloved an American icon as apple pie, this 8,839-foot granite behemoth is one of the steepest, most dangerous hikes in the national park system, gaining 5,000 feet of altitude in seven miles. It also suffers from overcrowding. But as long as you secure one of 225 allotted day-hike permits and come fit and prepared, it’s worth it for the sprawling view of Yosemite Valley. Start the route at dawn on the Merced River. After summiting the stone steps along 318-foot Vernal Falls and the subsequent 541-foot Nevada Falls, there’s still halfway to go. At 8,000 feet, the trees disappear and the stone steps to the base of the cables, a vertical walking path to the summit lined by steel handrails, begin. ",
+            "photo": 25,
+            "participants": [
+                1
+            ],
+            "ownedBy": 5
+        }
+    ],
+    "listOfUsers": [
+        {
+            "confirmed": true,
+            "blocked": false,
+            "username": "karonson0",
+            "email": "smckerley0@infoseek.co.jp",
+            "password": "aE7vzRfgYS",
+            "provider": "local",
+            "role": 1
+        },
+        {
+            "confirmed": true,
+            "blocked": false,
+            "username": "mmaccoll1",
+            "email": "amangeon1@mlb.com",
+            "password": "hdlYtaLc",
+            "provider": "local",
+            "role": 1
+        },
+        {
+            "confirmed": true,
+            "blocked": false,
+            "username": "fpierton2",
+            "email": "ehawken2@is.gd",
+            "password": "N0bf6WbcBeKG",
+            "provider": "local",
+            "role": 1
+        },
+        {
+            "confirmed": true,
+            "blocked": false,
+            "username": "geddywap45",
+            "email": "eloras3@livd.nu",
+            "password": "Jo384gVVs",
+            "provider": "local",
+            "role": 1
+        },
+        {
+            "confirmed": true,
+            "blocked": false,
+            "username": "supercargoreport",
+            "email": "superg@hot.com",
+            "password": "JKSDJjdsf8734",
+            "provider": "local",
+            "role": 1
+        },
+        {
+            "confirmed": true,
+            "blocked": false,
+            "username": "bspeakman3",
+            "email": "bspeakman3@nytimes.com",
+            "password": "DFjKBe3Fl",
+            "provider": "local",
+            "role": 1
+        },
+        {
+            "confirmed": true,
+            "blocked": false,
+            "username": "ebocklerh",
+            "email": "ebocklerh@shup.kettle",
+            "password": "HQzytg8MhXD",
+            "provider": "local",
+            "role": 1
+        },
+        {
+            "confirmed": true,
+            "blocked": false,
+            "username": "csnowball0",
+            "email": "csnowball0@smugmug.com",
+            "password": "dyk5AjPPNO29",
+            "provider": "local",
+            "role": 1
+        },
+        {
+            "confirmed": true,
+            "blocked": false,
+            "username": "bpeekevout1",
+            "email": "bpeekevout1@cmu.edu",
+            "password": "YtP69AgV6u",
+            "provider": "local",
+            "role": 1
+        },
+        {
+            "confirmed": true,
+            "blocked": false,
+            "username": "dpackwood2big",
+            "email": "dpackwood2@sina.com.cn",
+            "password": "QRs0AAsy",
+            "provider": "local",
+            "role": 1
+        }
+    ]
+}

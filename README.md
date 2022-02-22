@@ -53,3 +53,8 @@ npm run dev
 ```
 
 Open your browser on `localhost:3000`. Your application should be running!
+
+## Documentation
+
+Frontend documentation can be found [here](./frontend/documentation/).
+Backend documentation can be found [here](./backend/documentation/).

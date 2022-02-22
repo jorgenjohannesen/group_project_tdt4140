@@ -11,6 +11,7 @@ import capitalize from "../utils/capitalize";
 import { Box, Typography } from "@mui/material";
 import Link from "@mui/material/Link";
 import { useRouter } from "next/dist/client/router";
+import redirectIfAuthenticated from "../lib/redirectIfAuthenticated";
 
 export const DELAY_BEFORE_REROUTING_IN_MS = 2000;
 
@@ -43,6 +44,7 @@ const Login = () => {
     await axios
       .post(`${BACKEND_URL}/api/auth/local`, payload)
       .then((response) => {
+        setJwtIfDefined(response);
         setStatusCode(response.status);
       })
       .catch((error) => {
@@ -136,6 +138,10 @@ const Login = () => {
       </FormControl>
     </Box>
   );
+};
+
+export const getServerSideProps = async (context) => {
+  return redirectIfAuthenticated(context);
 };
 
 export default Login;
