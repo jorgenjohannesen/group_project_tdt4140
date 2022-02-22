@@ -9,6 +9,8 @@ import isEmpty from "../utils/isEmpty";
 import capitalize from "../utils/capitalize";
 import { Box, Typography } from "@mui/material";
 import Link from "@mui/material/Link";
+import nookies from "nookies";
+import setJwtIfDefined from "../lib/setJwtIfDefined";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -37,8 +39,9 @@ const Register = () => {
 
     // POST user to backend
     await axios
-      .post(`${BACKEND_URL}/api/users`, payload)
+      .post(`${BACKEND_URL}/api/auth/local/register`, payload)
       .then((response) => {
+        setJwtIfDefined(response);
         setStatusCode(response.status);
         setFeedback("Success! User created.");
       })
@@ -46,13 +49,22 @@ const Register = () => {
         const errorMessage = error.response.data.error.message;
 
         setStatusCode(error.response.status);
-        setFeedback(`Oops! ${capitalize(errorMessage)}.`);
+
+        if (
+          errorMessage
+            .toLowerCase()
+            .includes("error occurred during account creation")
+        ) {
+          setFeedback("Oops! Username is already taken.");
+        } else {
+          setFeedback(`Oops! ${capitalize(errorMessage)}.`);
+        }
       });
   };
 
   // Every time that state of the status code is updated, update the severity in the alert correspondingly.
   useEffect(() => {
-    if (statusCode === STATUS.CREATED) {
+    if (statusCode === STATUS.OK) {
       setSeverity("success");
     } else if (statusCode === STATUS.BAD_REQUEST) {
       setSeverity("error");
