@@ -4,7 +4,11 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
-import { BACKEND_URL, STATUS } from "../utils/constants";
+import {
+  BACKEND_URL,
+  STATUS,
+  DELAY_BEFORE_REROUTING_IN_MS,
+} from "../utils/constants";
 import Alert from "@mui/material/Alert";
 import isEmpty from "../utils/isEmpty";
 import capitalize from "../utils/capitalize";
@@ -12,8 +16,6 @@ import { Box, Typography } from "@mui/material";
 import Link from "@mui/material/Link";
 import { useRouter } from "next/dist/client/router";
 import redirectIfAuthenticated from "../lib/redirectIfAuthenticated";
-
-export const DELAY_BEFORE_REROUTING_IN_MS = 2000;
 
 const Login = () => {
   const [identifier, setIdentifier] = useState("");

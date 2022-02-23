@@ -9,7 +9,6 @@ import isEmpty from "../utils/isEmpty";
 import capitalize from "../utils/capitalize";
 import { Box, Typography } from "@mui/material";
 import Link from "@mui/material/Link";
-import nookies from "nookies";
 import setJwtIfDefined from "../lib/setJwtIfDefined";
 
 const Register = () => {
