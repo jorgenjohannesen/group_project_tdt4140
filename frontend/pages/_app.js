@@ -1,6 +1,6 @@
 import { useRouter } from "next/dist/client/router";
-import "../styles/globals.css";
 import Layout from "../components/Layout";
+import "../styles/globals.css";
 import capitalize from "../utils/capitalize";
 
 function App({ Component, pageProps }) {

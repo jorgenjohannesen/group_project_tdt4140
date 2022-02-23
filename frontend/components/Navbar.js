@@ -12,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import Link from "next/link";
+import AddIcon from "@mui/icons-material/Add";
 
 const pages = ["Hikes", "Pricing", "Blog"];
 
@@ -109,6 +110,21 @@ const Navbar = () => {
                 {page}
               </Button>
             ))}
+          </Box>
+          <Box sx={{ pr: 4 }}>
+            <Link href="/hikes/add">
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "lightgray",
+                  color: "black",
+                  "&:hover": { backgroundColor: "white" },
+                }}
+                startIcon={<AddIcon />}
+              >
+                Add hike
+              </Button>
+            </Link>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
