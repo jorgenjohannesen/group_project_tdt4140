@@ -9,7 +9,7 @@ import isEmpty from "../utils/isEmpty";
 import capitalize from "../utils/capitalize";
 import { Box, Typography } from "@mui/material";
 import Link from "@mui/material/Link";
-import setJwtIfDefined from "../lib/setJwtIfDefined";
+import { setJwtIfDefined } from "../lib/jwt";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -144,10 +144,12 @@ const Register = () => {
         </Button>
 
         <Box sx={{ mx: "auto", py: 1 }}>
-          Already have an account?{" "}
-          <Link href="/login" data-cy="login-link">
-            Click here to login.
-          </Link>
+          <Typography>
+            Already have an account?{" "}
+            <Link href="/login" data-cy="login-link">
+              Click here to login.
+            </Link>
+          </Typography>
         </Box>
       </FormControl>
     </Box>

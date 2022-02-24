@@ -234,7 +234,7 @@ const UpdateHike = ({ hike }) => {
             </Box>
           </Box>
 
-          {downloadedPhoto && (
+          {downloadedPhoto.data && (
             <Box sx={{ px: 4, width: "60%" }}>
               <Image
                 src={`${BACKEND_URL}${downloadedPhoto.data.attributes.url}`}
