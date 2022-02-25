@@ -23,8 +23,8 @@ export const setJwtIfDefined = (response) => {
  * Gets the currently logged in user's ID if a JWT token is set.
  * @returns the currently logged in user's ID if a JWT token is set, or undefined if no JWT token is set.
  */
-export const getUserIdFromJwtOrUndefined = () => {
-  const cookies = nookies.get();
+export const getUserIdFromJwtOrUndefined = (context = null) => {
+  const cookies = nookies.get(context);
   const jwt = cookies.jwt || null;
   if (jwt) {
     const { id } = jwt_decode(jwt);

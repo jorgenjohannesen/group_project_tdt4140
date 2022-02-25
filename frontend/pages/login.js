@@ -51,6 +51,7 @@ const Login = () => {
         setStatusCode(response.status);
       })
       .catch((error) => {
+        console.log(error);
         const errorMessage = error.response.data.error.message;
 
         setStatusCode(error.response.status);
