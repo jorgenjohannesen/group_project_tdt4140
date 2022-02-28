@@ -16,6 +16,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
+import { getUserIdFromJwtOrUndefined } from "../../../lib/jwt";
 
 const Input = styled("input")({
   display: "none",
@@ -252,6 +253,11 @@ const UpdateHike = ({ hike }) => {
 
 export const getServerSideProps = async (context) => {
   const id = context.params.id;
+
+  const userId = getUserIdFromJwtOrUndefined();
+  if (!userId) {
+    return { redirect: { destination: "/", permanent: false } };
+  }
 
   const response = await fetch(`${BACKEND_URL}/api/hikes/${id}?populate=*`);
   const result = await response.json();
