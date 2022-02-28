@@ -8,8 +8,10 @@ import { useEffect, useState } from "react";
 import { getUserIdFromJwtOrUndefined } from "../../lib/jwt";
 import { STATUS } from "../../utils/constants";
 import Typography from "@mui/material/Typography";
-import { red, green } from "@mui/material/colors";
+import { red, green, grey } from "@mui/material/colors";
 import ClearIcon from "@mui/icons-material/Clear";
+import ReportIcon from "@mui/icons-material/Report";
+import capitalize from "../../utils/capitalize";
 
 const Hike = ({ hike: hikeInput }) => {
   const [userId, setUserId] = useState(undefined);
@@ -105,6 +107,24 @@ const Hike = ({ hike: hikeInput }) => {
       });
   };
 
+  const handleReport = async () => {
+    const payload = {
+      data: { ...hike, isReported: true },
+    };
+
+    await axios
+      .put(`${BACKEND_URL}/api/hikes/${id}?populate=*`, payload)
+      .then((response) => {
+        setStatusCode(response.status);
+        setFeedback("Successfully reported hike!");
+      })
+      .catch((error) => {
+        const errorMessage = error.response.data.error.message;
+        setStatusCode(error.response.status);
+        setFeedback(`Oops! ${capitalize(errorMessage)}.`);
+      });
+  };
+
   // Every time that state of the status code is updated, update the severity in the alert correspondingly.
   useEffect(() => {
     if (statusCode === STATUS.OK) {
@@ -159,6 +179,24 @@ const Hike = ({ hike: hikeInput }) => {
             return <Typography variant="subtitle1">{username}</Typography>;
           })}
         </Box>
+      )}
+
+      {userId && hike.attributes.ownedBy.data.id !== userId && (
+        <Button
+          onClick={handleReport}
+          sx={{
+            width: 1 / 4,
+            backgroundColor: grey[300],
+            color: "black",
+            "&:hover": {
+              backgroundColor: grey[200],
+            },
+          }}
+          variant="contained"
+          startIcon={<ReportIcon />}
+        >
+          Report
+        </Button>
       )}
     </Box>
   );
