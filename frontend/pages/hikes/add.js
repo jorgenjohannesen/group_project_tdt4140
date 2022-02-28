@@ -178,7 +178,7 @@ const Add = () => {
 };
 
 export const getServerSideProps = async (context) => {
-  const userId = getUserIdFromJwtOrUndefined();
+  const userId = getUserIdFromJwtOrUndefined(context);
 
   if (!userId) {
     return { redirect: { destination: "/", permanent: false } };
