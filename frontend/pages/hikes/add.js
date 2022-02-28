@@ -12,6 +12,7 @@ import { styled } from "@mui/material/styles";
 import isEmpty from "../../utils/isEmpty";
 import capitalize from "../../utils/capitalize";
 import Typography from "@mui/material/Typography";
+import { getUserIdFromJwtOrUndefined } from "../../lib/jwt";
 
 const Input = styled("input")({
   display: "none",
@@ -175,4 +176,15 @@ const Add = () => {
     </Box>
   );
 };
+
+export const getServerSideProps = async (context) => {
+  const userId = getUserIdFromJwtOrUndefined();
+
+  if (!userId) {
+    return { redirect: { destination: "/", permanent: false } };
+  }
+
+  return { props: {} };
+};
+
 export default Add;
