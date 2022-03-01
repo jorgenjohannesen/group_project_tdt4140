@@ -19,6 +19,9 @@
       "action": "api::hike.hike.update"
     },
     {
+      "action": "plugin::upload.content-api.destroy"
+    },
+    {
       "action": "plugin::upload.content-api.find"
     },
     {

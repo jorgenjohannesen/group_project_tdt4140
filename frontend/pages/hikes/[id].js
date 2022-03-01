@@ -18,9 +18,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Image from "next/image";
-import { color } from "@mui/system";
 import ReportIcon from "@mui/icons-material/Report";
 import capitalize from "../../utils/capitalize";
+import Link from "next/link";
+import router from "next/router";
 
 const Hike = ({ hike: hikeInput }) => {
   const [userId, setUserId] = useState(undefined);
@@ -32,7 +33,7 @@ const Hike = ({ hike: hikeInput }) => {
   const [userIsParticipating, setUserIsParticipating] = useState(false);
 
   const {
-    id,
+    id: hikeId,
     attributes: {
       title,
       description,
@@ -40,6 +41,7 @@ const Hike = ({ hike: hikeInput }) => {
       participants: { data: participants },
       ownedBy: {
         data: {
+          id: ownerId,
           attributes: { username },
         },
       },
@@ -91,6 +93,26 @@ const Hike = ({ hike: hikeInput }) => {
         const errorMessage = error.response.data.error.message;
         setStatusCode(error.response.status);
         setFeedback(`Oops! ${capitalize(errorMessage)}.`);
+      });
+  };
+
+  const handleDeleteHike = async () => {
+    await axios
+      .delete(`${BACKEND_URL}/api/hikes/${hikeId}`)
+      .then((response) => {
+        setStatusCode(response.status);
+        setFeedback("Successfully deleted hike!");
+
+        // Wait for provided time, and then route user to the index page
+        router.push("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        const errorMessage = error.response.data.error.message;
+
+        console.log(errorMessage);
+        setStatusCode(error.response.status);
+        setFeedback(`Oops! ${capitalize(errorMessage)}`);
       });
   };
 
@@ -224,7 +246,28 @@ const Hike = ({ hike: hikeInput }) => {
               )}
             </Box>
 
-            <Box sx={{ display: "flex" }}></Box>
+            {ownerId === userId && (
+              <Box>
+                <Link href={`/hikes/update/${hikeId}`}>
+                  <Button
+                    variant="contained"
+                    sx={{ m: 1 }}
+                    data-cy="submit-button"
+                  >
+                    Update
+                  </Button>
+                </Link>
+
+                <Button
+                  variant="contained"
+                  sx={{ m: 1 }}
+                  onClick={handleDeleteHike}
+                  data-cy="submit-button"
+                >
+                  Delete
+                </Button>
+              </Box>
+            )}
           </Box>
 
           <Box

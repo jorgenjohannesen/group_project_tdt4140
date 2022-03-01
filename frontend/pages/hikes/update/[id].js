@@ -254,7 +254,7 @@ const UpdateHike = ({ hike }) => {
 export const getServerSideProps = async (context) => {
   const id = context.params.id;
 
-  const userId = getUserIdFromJwtOrUndefined();
+  const userId = getUserIdFromJwtOrUndefined(context);
   if (!userId) {
     return { redirect: { destination: "/", permanent: false } };
   }
