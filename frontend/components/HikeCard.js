@@ -14,6 +14,9 @@ import mountainImage from "/mountain.jpg";
 import { BACKEND_URL } from "../utils/constants";
 import Grid from "@mui/material/Grid";
 import { getUserIdFromJwtOrUndefined } from "../lib/jwt";
+import Link from "next/link";
+import UpdateIcon from "@mui/icons-material//Update";
+import axios from "axios";
 
 const HikeCard = ({ hike, columns }) => {
   const {
@@ -68,8 +71,35 @@ const HikeCard = ({ hike, columns }) => {
           {userId == ownerId && (
             <Grid item>
               <CardContent>
-                <DeleteIcon></DeleteIcon>
-                <EditIcon></EditIcon>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={async () => {
+                    await axios
+                      .delete(`${BACKEND_URL}/api/hikes/${id}`)
+                      .then((response) => {
+                        // Wait for provided time, and then route user to the index page
+                        router.push("/");
+                      })
+                      .catch((error) => {});
+                  }}
+                  color="inherit"
+                >
+                  <DeleteIcon />
+                </IconButton>
+                <Link href={`/hikes/update/${id}`}>
+                  <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    color="inherit"
+                  >
+                    <UpdateIcon />
+                  </IconButton>
+                </Link>
               </CardContent>
             </Grid>
           )}

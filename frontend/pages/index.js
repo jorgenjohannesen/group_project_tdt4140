@@ -1,4 +1,5 @@
 import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
 import { BACKEND_URL } from "../utils/constants";
 import HikeListIndex from "../components/HikeListIndex";
 
