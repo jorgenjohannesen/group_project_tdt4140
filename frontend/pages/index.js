@@ -1,11 +1,11 @@
 import Container from "@mui/material/Container";
 import { BACKEND_URL } from "../utils/constants";
-import HikeList from "../components/HikeList";
+import HikeListIndex from "../components/HikeListIndex";
 
 const Home = ({ hikes }) => {
   return (
     <Container>
-      <HikeList hikes={hikes} />
+      <HikeListIndex hikes={hikes} />
     </Container>
   );
 };
