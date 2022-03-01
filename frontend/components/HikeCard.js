@@ -19,23 +19,23 @@ const HikeCard = ({ hike }) => {
   } = hike;
 
   let photoUrl = mountainImage;
-  let photoHeight = 200;
-  let photoWidth = 200;
+  let photoHeight = 300;
+  let photoWidth = 350;
 
   if (photo.data != null) {
     photoUrl = `${BACKEND_URL}${photo.data.attributes.url}`;
-    photoHeight = photo.data.attributes.height;
-    photoWidth = photo.data.attributes.width;
+    //photoHeight = photo.data.attributes.height;
+    //photoWidth = photo.data.attributes.width;
   }
 
   return (
-    <Grid item xs={12} md={6} lg={6}>
+    <Grid item xs={'auto'} md={'auto'} lg={'auto'}>
       <Card style={({ backgroundColor: "lightgrey" }, { margin: "10px" })}>
         <Image
           src={photoUrl}
           height={photoHeight}
           width={photoWidth}
-          object-fit="cover"
+          objectFit='cover'
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
