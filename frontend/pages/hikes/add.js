@@ -148,8 +148,6 @@ const Add = () => {
                 type="file"
                 onChange={(event) => {
                   const input = event.target.files[0];
-                  console.log(input);
-
                   setPhoto(input);
                 }}
               />
