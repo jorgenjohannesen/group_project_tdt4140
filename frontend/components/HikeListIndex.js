@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import HikeCard from "./HikeCard";
 import Box from "@mui/material/Box";
 
-const HikeList = ({ hikes }) => {
+const HikeListIndex = ({ hikes }) => {
   return (
     <Grid container spacing={2}>
       {hikes.map((hike, index) => (
@@ -13,4 +13,4 @@ const HikeList = ({ hikes }) => {
   );
 };
 
-export default HikeList;
+export default HikeListIndex;
