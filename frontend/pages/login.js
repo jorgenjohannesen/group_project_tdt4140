@@ -16,6 +16,7 @@ import { Box, Typography } from "@mui/material";
 import Link from "@mui/material/Link";
 import { useRouter } from "next/dist/client/router";
 import redirectIfAuthenticated from "../lib/redirectIfAuthenticated";
+import { setJwtIfDefined } from "../lib/jwt";
 
 const Login = () => {
   const [identifier, setIdentifier] = useState("");
@@ -50,6 +51,7 @@ const Login = () => {
         setStatusCode(response.status);
       })
       .catch((error) => {
+        console.log(error);
         const errorMessage = error.response.data.error.message;
 
         setStatusCode(error.response.status);
@@ -132,10 +134,12 @@ const Login = () => {
         </Button>
 
         <Box sx={{ mx: "auto", py: 1 }}>
-          Don't have an account?{" "}
-          <Link href="/register" data-cy="register-link">
-            Register a new user.
-          </Link>
+          <Typography>
+            Don't have an account?{" "}
+            <Link href="/register" data-cy="register-link">
+              Register a new user.
+            </Link>
+          </Typography>
         </Box>
       </FormControl>
     </Box>
