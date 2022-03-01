@@ -18,7 +18,7 @@ const Input = styled("input")({
   display: "none",
 });
 
-const Add = () => {
+const Add = ({userId}) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [statusCode, setStatusCode] = useState(-1);
@@ -32,10 +32,12 @@ const Add = () => {
       setFeedback("All input fields must be filled in.");
       return;
     }
+
     const payload = {
       data: {
         title: title,
         description: description,
+        ownedBy: userId,
       },
     };
 
@@ -184,7 +186,7 @@ export const getServerSideProps = async (context) => {
     return { redirect: { destination: "/", permanent: false } };
   }
 
-  return { props: {} };
+  return { props: { userId } };
 };
 
 export default Add;
