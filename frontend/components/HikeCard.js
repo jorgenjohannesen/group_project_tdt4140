@@ -68,7 +68,7 @@ const HikeCard = ({ hike, columns }) => {
             </CardActions>
           </Grid>
 
-          {userId == ownerId && (
+          {/* {userId == ownerId && (
             <Grid item>
               <CardContent>
                 <IconButton
@@ -102,7 +102,7 @@ const HikeCard = ({ hike, columns }) => {
                 </Link>
               </CardContent>
             </Grid>
-          )}
+          )} */}
         </Grid>
       </Card>
     </Grid>
