@@ -8,8 +8,19 @@ import { useEffect, useState } from "react";
 import { getUserIdFromJwtOrUndefined } from "../../lib/jwt";
 import { STATUS } from "../../utils/constants";
 import Typography from "@mui/material/Typography";
-import { red, green } from "@mui/material/colors";
 import ClearIcon from "@mui/icons-material/Clear";
+import { red, green, grey } from "@mui/material/colors";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Image from "next/image";
+import { color } from "@mui/system";
+import ReportIcon from "@mui/icons-material/Report";
+import capitalize from "../../utils/capitalize";
 
 const Hike = ({ hike: hikeInput }) => {
   const [userId, setUserId] = useState(undefined);
@@ -25,9 +36,12 @@ const Hike = ({ hike: hikeInput }) => {
     attributes: {
       title,
       description,
+      photo,
       participants: { data: participants },
       ownedBy: {
-        data: { ownedBy },
+        data: {
+          attributes: { username },
+        },
       },
     },
   } = hike;
@@ -36,8 +50,6 @@ const Hike = ({ hike: hikeInput }) => {
   useEffect(() => {
     const userId = getUserIdFromJwtOrUndefined();
     setUserId(userId);
-
-    console.log(userId);
 
     if (userId) {
       const userIsParticipating =
@@ -105,6 +117,24 @@ const Hike = ({ hike: hikeInput }) => {
       });
   };
 
+  const handleReport = async () => {
+    const payload = {
+      data: { ...hike, isReported: true },
+    };
+
+    await axios
+      .put(`${BACKEND_URL}/api/hikes/${id}?populate=*`, payload)
+      .then((response) => {
+        setStatusCode(response.status);
+        setFeedback("Successfully reported hike!");
+      })
+      .catch((error) => {
+        const errorMessage = error.response.data.error.message;
+        setStatusCode(error.response.status);
+        setFeedback(`Oops! ${capitalize(errorMessage)}.`);
+      });
+  };
+
   // Every time that state of the status code is updated, update the severity in the alert correspondingly.
   useEffect(() => {
     if (statusCode === STATUS.OK) {
@@ -117,49 +147,166 @@ const Hike = ({ hike: hikeInput }) => {
   }, [statusCode]);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
-      {feedback && (
-        <Alert
-          severity={severity}
-          sx={{ width: "65%", mx: "auto", my: 2 }}
-          data-cy="alert"
-        >
-          {feedback}
-        </Alert>
-      )}
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
+        {feedback && (
+          <Alert
+            severity={severity}
+            sx={{ width: "65%", mx: "auto", my: 2 }}
+            data-cy="alert"
+          >
+            {feedback}
+          </Alert>
+        )}
 
-      {userId && (
-        <Button
-          onClick={
-            userIsParticipating ? handleSignOffForHike : handleSignUpForHike
-          }
+        <Box
           sx={{
-            width: 1 / 4,
-            backgroundColor: userIsParticipating ? red[300] : green[300],
-            color: "black",
-            "&:hover": {
-              backgroundColor: userIsParticipating ? red[200] : green[200],
-            },
+            display: "flex",
+            justifyContent: "space-evenly",
+            sm: { flexDirection: "column" },
           }}
-          variant="contained"
-          startIcon={userIsParticipating ? <ClearIcon /> : <AddIcon />}
         >
-          {userIsParticipating ? "Sign off for hike" : "Sign up for hike"}
-        </Button>
-      )}
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            {title && (
+              <Typography variant="h4" sx={{ p: 1 }}>
+                {title}
+              </Typography>
+            )}
 
-      {participants && (
-        <Box>
-          {participants.map((participant) => {
-            const {
-              id,
-              attributes: { username },
-            } = participant;
+            <Box sx={{ display: "flex", flexDirection: "row", p: 1 }}>
+              {username && (
+                <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
+                  Posted by: {username}
+                </Typography>
+              )}
 
-            return <Typography variant="subtitle1">{username}</Typography>;
-          })}
+              {userId && (
+                <Button
+                  onClick={
+                    userIsParticipating
+                      ? handleSignOffForHike
+                      : handleSignUpForHike
+                  }
+                  sx={{
+                    width: 1,
+                    p: 1,
+                    backgroundColor: userIsParticipating
+                      ? red[300]
+                      : green[300],
+                    color: "black",
+                    "&:hover": {
+                      backgroundColor: userIsParticipating
+                        ? red[200]
+                        : green[200],
+                      my: 2,
+                    },
+                  }}
+                  variant="contained"
+                  startIcon={userIsParticipating ? <ClearIcon /> : <AddIcon />}
+                >
+                  {userIsParticipating
+                    ? "Sign off for hike"
+                    : "Sign up for hike"}
+                </Button>
+              )}
+            </Box>
+
+            <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
+              {description && (
+                <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
+                  {description}
+                </Typography>
+              )}
+            </Box>
+
+            <Box sx={{ display: "flex" }}></Box>
+          </Box>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              width: "60%",
+            }}
+          >
+            {photo.data && (
+              <Box sx={{ width: "80%", my: 2 }}>
+                <Image
+                  src={`${BACKEND_URL}${photo.data.attributes.url}`}
+                  height={photo.data.attributes.height}
+                  width={photo.data.attributes.width}
+                  object-fit="cover"
+                />
+              </Box>
+            )}
+
+            <TableContainer
+              component={Paper}
+              sx={{
+                width: "60%",
+                display: "flex",
+                flexDirection: "column",
+                my: 2,
+              }}
+            >
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell sx={{ fontWeight: "bold", fontSize: 20 }}>
+                      Participants
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>
+                      {participants && (
+                        <Box>
+                          {participants.map((participant) => {
+                            const {
+                              id,
+                              attributes: { username },
+                            } = participant;
+
+                            return (
+                              <Typography variant="subtitle1">
+                                {username}
+                              </Typography>
+                            );
+                          })}
+                        </Box>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+
+            {userId && hike.attributes.ownedBy.data.id !== userId && (
+              <Button
+                onClick={handleReport}
+                sx={{
+                  width: 1 / 4,
+                  backgroundColor: grey[300],
+                  color: "black",
+                  "&:hover": {
+                    backgroundColor: grey[200],
+                  },
+                }}
+                variant="contained"
+                startIcon={<ReportIcon />}
+              >
+                Report
+              </Button>
+            )}
+          </Box>
         </Box>
-      )}
+      </Box>
     </Box>
   );
 };

@@ -41,6 +41,10 @@
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
       "inversedBy": "participatingIn"
+    },
+    "isReported": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
