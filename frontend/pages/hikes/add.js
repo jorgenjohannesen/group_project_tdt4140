@@ -36,6 +36,7 @@ const Add = () => {
       data: {
         title: title,
         description: description,
+        ownedBy: getUserIdFromJwtOrUndefined(),
       },
     };
 
