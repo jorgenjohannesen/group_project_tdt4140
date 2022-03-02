@@ -76,7 +76,7 @@ const Navbar = () => {
               sx={{
                 mr: 2,
                 display: { xs: "none", md: "flex" },
-                "& hover": { cursor: "pointer" },
+                "&:hover": { cursor: "pointer", color: "darkgrey" },
               }}
             >
               HikeLink

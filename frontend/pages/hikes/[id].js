@@ -81,7 +81,7 @@ const Hike = ({ hike: hikeInput }) => {
     };
 
     await axios
-      .put(`${BACKEND_URL}/api/hikes/${id}?populate=*`, payload)
+      .put(`${BACKEND_URL}/api/hikes/${hikeId}?populate=*`, payload)
       .then((response) => {
         const hike = response.data.data;
         setStatusCode(response.status);
@@ -124,7 +124,7 @@ const Hike = ({ hike: hikeInput }) => {
     };
 
     await axios
-      .put(`${BACKEND_URL}/api/hikes/${id}?populate=*`, payload)
+      .put(`${BACKEND_URL}/api/hikes/${hikeId}?populate=*`, payload)
       .then((response) => {
         const hike = response.data.data;
         setStatusCode(response.status);
@@ -145,7 +145,7 @@ const Hike = ({ hike: hikeInput }) => {
     };
 
     await axios
-      .put(`${BACKEND_URL}/api/hikes/${id}?populate=*`, payload)
+      .put(`${BACKEND_URL}/api/hikes/${hikeId}?populate=*`, payload)
       .then((response) => {
         setStatusCode(response.status);
         setFeedback("Successfully reported hike!");
@@ -203,7 +203,17 @@ const Hike = ({ hike: hikeInput }) => {
             <Box sx={{ display: "flex", flexDirection: "row", p: 1 }}>
               {username && (
                 <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
-                  Posted by: {username}
+                  Posted by:{" "}
+                  <Link href={`/users/${ownerId}`}>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{
+                        "&:hover": { color: "lightblue", cursor: "pointer" },
+                      }}
+                    >
+                      {username}
+                    </Typography>
+                  </Link>
                 </Typography>
               )}
 
@@ -312,14 +322,24 @@ const Hike = ({ hike: hikeInput }) => {
                         <Box>
                           {participants.map((participant) => {
                             const {
-                              id,
+                              id: userId,
                               attributes: { username },
                             } = participant;
 
                             return (
-                              <Typography variant="subtitle1">
-                                {username}
-                              </Typography>
+                              <Link href={`/users/${userId}`}>
+                                <Typography
+                                  variant="subtitle1"
+                                  sx={{
+                                    "&:hover": {
+                                      color: "lightblue",
+                                      cursor: "pointer",
+                                    },
+                                  }}
+                                >
+                                  {username}
+                                </Typography>
+                              </Link>
                             );
                           })}
                         </Box>
