@@ -22,6 +22,8 @@ import ReportIcon from "@mui/icons-material/Report";
 import capitalize from "../../utils/capitalize";
 import Link from "next/link";
 import router from "next/router";
+import placeholder from "/placeholder.jpg";
+
 
 const Hike = ({ hike: hikeInput }) => {
   const [userId, setUserId] = useState(undefined);
@@ -168,6 +170,16 @@ const Hike = ({ hike: hikeInput }) => {
     }
   }, [statusCode]);
 
+  // If hike doesn't have an image, choose placeholder
+  let photoUrl = placeholder;
+  let photoHeight = 450;
+  let photoWidth = 800;
+  if (photo?.data?.attributes?.url != null) {
+    photoUrl = `${BACKEND_URL}${photo.data.attributes.url}`;
+    photoHeight = photo.data.attributes.height;
+    photoWidth = photo.data.attributes.width;
+  }
+
   return (
     <Box
       sx={{
@@ -287,17 +299,14 @@ const Hike = ({ hike: hikeInput }) => {
               width: "60%",
             }}
           >
-            {photo.data && (
-              <Box sx={{ width: "80%", my: 2 }}>
-                <Image
-                  src={`${BACKEND_URL}${photo.data.attributes.url}`}
-                  height={photo.data.attributes.height}
-                  width={photo.data.attributes.width}
-                  object-fit="cover"
-                />
-              </Box>
-            )}
-
+            <Box sx={{ width: "80%", my: 2 }}>
+              <Image
+                src={photoUrl}
+                height={photoHeight}
+                width={photoWidth}
+                object-fit="cover"
+              />
+            </Box>
             <TableContainer
               component={Paper}
               sx={{
