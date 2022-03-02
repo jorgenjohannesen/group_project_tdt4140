@@ -23,17 +23,17 @@ const pages = [
   // "Blog"
 ];
 
-const settings = [
-  // "Profile",
-  // "Account",
-  { label: "Logout", href: "/logout" },
-];
-
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [userIsLoggedIn, setUserIsLogggedIn] = useState(false);
   const [userId, setUserId] = useState(undefined);
+
+  const settings = [
+    { label: "Your profile", href: `/users/${userId}` },
+    // "Account",
+    { label: "Logout", href: "/logout" },
+  ];
 
   const router = useRouter();
   // Set userId when page loads
