@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import mountainImage from "/mountain.jpg";
+import placeholder from "/placeholder.jpg";
 import { BACKEND_URL } from "../utils/constants";
 import Grid from "@mui/material/Grid";
 import { getUserIdFromJwtOrUndefined } from "../lib/jwt";
@@ -25,9 +25,9 @@ const HikeCard = ({ hike, columns }) => {
   } = hike;
   const ownerId = ownedBy?.data?.id;
 
-  let photoUrl = mountainImage;
-  let photoHeight = 200;
-  let photoWidth = 200;
+  let photoUrl = placeholder;
+  let photoHeight = 450;
+  let photoWidth = 800;
 
   let userId = getUserIdFromJwtOrUndefined();
 
