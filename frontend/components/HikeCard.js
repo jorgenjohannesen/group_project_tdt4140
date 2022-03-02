@@ -4,19 +4,10 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
-import Paper from "@mui/material/Paper";
-import InputBase from "@mui/material/InputBase";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import placeholder from "/placeholder.jpg";
 import { BACKEND_URL } from "../utils/constants";
 import Grid from "@mui/material/Grid";
 import { getUserIdFromJwtOrUndefined } from "../lib/jwt";
-import Link from "next/link";
-import UpdateIcon from "@mui/icons-material//Update";
-import axios from "axios";
 
 const HikeCard = ({ hike, columns }) => {
   const {
