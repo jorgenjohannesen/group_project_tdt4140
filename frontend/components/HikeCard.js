@@ -18,10 +18,10 @@ const HikeCard = ({ hike, columns }) => {
      },
     id,
   } = hike;
-  
+
   const ownerId = ownedBy?.data?.id;
 
-  const isCommercial = ownedBy.data.attributes.isCommercial;
+  const isCommercial = ownedBy?.data?.attributes?.isCommercial;
 
   let photoUrl = placeholder;
   let photoHeight = 450;
