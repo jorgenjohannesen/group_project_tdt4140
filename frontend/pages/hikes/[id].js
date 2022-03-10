@@ -24,7 +24,6 @@ import Link from "next/link";
 import router from "next/router";
 import placeholder from "/placeholder.jpg";
 
-
 const Hike = ({ hike: hikeInput }) => {
   const [userId, setUserId] = useState(undefined);
   const [hike, setHike] = useState(hikeInput);
@@ -40,11 +39,12 @@ const Hike = ({ hike: hikeInput }) => {
       title,
       description,
       photo,
+      price,
       participants: { data: participants },
       ownedBy: {
         data: {
+          attributes: { username, isCommercial },
           id: ownerId,
-          attributes: { username },
         },
       },
     },
@@ -268,28 +268,15 @@ const Hike = ({ hike: hikeInput }) => {
               )}
             </Box>
 
-            {ownerId === userId && (
-              <Box>
-                <Link href={`/hikes/update/${hikeId}`}>
-                  <Button
-                    variant="contained"
-                    sx={{ m: 1 }}
-                    data-cy="submit-button"
-                  >
-                    Update
-                  </Button>
-                </Link>
-
-                <Button
-                  variant="contained"
-                  sx={{ m: 1 }}
-                  onClick={handleDeleteHike}
-                  data-cy="submit-button"
-                >
-                  Delete
-                </Button>
-              </Box>
-            )}
+            <Box>
+              {isCommercial && (
+                <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
+                  <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
+                    Price: {price}kr
+                  </Typography>
+                </Box>
+              )}
+            </Box>
           </Box>
 
           <Box
