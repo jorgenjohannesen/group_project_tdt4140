@@ -137,6 +137,7 @@ const Register = () => {
         />
         <FormControlLabel
           labelPlacement='start'
+          sx={{ mr: 1 }}
           control={<Checkbox defaultUnchecked
             data-cy="checkbox-commercial"
           />}
