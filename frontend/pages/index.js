@@ -42,7 +42,7 @@ const Home = ({ hikes }) => {
 };
 
 export const getServerSideProps = async () => {
-  const response = await fetch(`${BACKEND_URL}/api/hikes?populate=photo`);
+  const response = await fetch(`${BACKEND_URL}/api/hikes?populate=*`);
   const result = await response.json();
 
   const hikes = result.data;
