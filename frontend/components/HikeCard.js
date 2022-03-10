@@ -18,6 +18,7 @@ const HikeCard = ({ hike, columns }) => {
      },
     id,
   } = hike;
+  
   const ownerId = ownedBy?.data?.id;
 
   const isCommercial = ownedBy.data.attributes.isCommercial;
