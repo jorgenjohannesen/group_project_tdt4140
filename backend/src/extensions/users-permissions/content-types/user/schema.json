@@ -74,6 +74,21 @@
       "relation": "manyToMany",
       "target": "api::hike.hike",
       "mappedBy": "participants"
+    },
+    "isCommercial": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "profilePicture": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
