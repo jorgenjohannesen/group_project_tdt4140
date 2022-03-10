@@ -4,19 +4,10 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
-import Paper from "@mui/material/Paper";
-import InputBase from "@mui/material/InputBase";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import mountainImage from "/mountain.jpg";
+import placeholder from "/placeholder.jpg";
 import { BACKEND_URL } from "../utils/constants";
 import Grid from "@mui/material/Grid";
 import { getUserIdFromJwtOrUndefined } from "../lib/jwt";
-import Link from "next/link";
-import UpdateIcon from "@mui/icons-material//Update";
-import axios from "axios";
 
 const HikeCard = ({ hike, columns }) => {
   const {
@@ -25,9 +16,9 @@ const HikeCard = ({ hike, columns }) => {
   } = hike;
   const ownerId = ownedBy?.data?.id;
 
-  let photoUrl = mountainImage;
-  let photoHeight = 200;
-  let photoWidth = 200;
+  let photoUrl = placeholder;
+  let photoHeight = 450;
+  let photoWidth = 800;
 
   let userId = getUserIdFromJwtOrUndefined();
 
@@ -68,7 +59,7 @@ const HikeCard = ({ hike, columns }) => {
             </CardActions>
           </Grid>
 
-          {userId == ownerId && (
+          {/* {userId == ownerId && (
             <Grid item>
               <CardContent>
                 <IconButton
@@ -102,7 +93,7 @@ const HikeCard = ({ hike, columns }) => {
                 </Link>
               </CardContent>
             </Grid>
-          )}
+          )} */}
         </Grid>
       </Card>
     </Grid>

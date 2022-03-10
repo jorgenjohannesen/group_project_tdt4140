@@ -22,7 +22,7 @@ const User = ({ yourHikes, participatedHikes, owner }) => {
       <Grid container spacing={2}>
         <Grid container item xs={12} md={8}>
           <Typography variant="h4">
-            {ownerId == userId ? "Your " : `${username}'s`}hikes
+            {ownerId == userId ? "Your " : `${username}'s`} hikes
           </Typography>
           <HikeListUser hikes={yourHikes}></HikeListUser>
         </Grid>

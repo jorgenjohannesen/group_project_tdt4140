@@ -5,7 +5,7 @@ import HikeListIndex from "../components/HikeListIndex";
 
 const Home = ({ hikes }) => {
   return (
-    <Container>
+    <Container sx={{ mb: 12 }}>
       <HikeListIndex hikes={hikes} />
     </Container>
   );
@@ -19,7 +19,7 @@ export const getServerSideProps = async () => {
 
   // Sort hikes such that the most recent hike is first in the array
   hikes.sort(
-    (a, b) => -a.attributes.updatedAt.localeCompare(b.attributes.updatedAt)
+    (a, b) => -a.attributes.createdAt.localeCompare(b.attributes.createdAt)
   );
 
   return {

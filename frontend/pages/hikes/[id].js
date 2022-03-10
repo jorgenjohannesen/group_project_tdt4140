@@ -18,9 +18,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Image from "next/image";
-import { color } from "@mui/system";
 import ReportIcon from "@mui/icons-material/Report";
 import capitalize from "../../utils/capitalize";
+import Link from "next/link";
+import router from "next/router";
+import placeholder from "/placeholder.jpg";
+
 
 const Hike = ({ hike: hikeInput }) => {
   const [userId, setUserId] = useState(undefined);
@@ -32,7 +35,7 @@ const Hike = ({ hike: hikeInput }) => {
   const [userIsParticipating, setUserIsParticipating] = useState(false);
 
   const {
-    id,
+    id: hikeId,
     attributes: {
       title,
       description,
@@ -40,6 +43,7 @@ const Hike = ({ hike: hikeInput }) => {
       participants: { data: participants },
       ownedBy: {
         data: {
+          id: ownerId,
           attributes: { username },
         },
       },
@@ -79,7 +83,7 @@ const Hike = ({ hike: hikeInput }) => {
     };
 
     await axios
-      .put(`${BACKEND_URL}/api/hikes/${id}?populate=*`, payload)
+      .put(`${BACKEND_URL}/api/hikes/${hikeId}?populate=*`, payload)
       .then((response) => {
         const hike = response.data.data;
         setStatusCode(response.status);
@@ -94,6 +98,26 @@ const Hike = ({ hike: hikeInput }) => {
       });
   };
 
+  const handleDeleteHike = async () => {
+    await axios
+      .delete(`${BACKEND_URL}/api/hikes/${hikeId}`)
+      .then((response) => {
+        setStatusCode(response.status);
+        setFeedback("Successfully deleted hike!");
+
+        // Wait for provided time, and then route user to the index page
+        router.push("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        const errorMessage = error.response.data.error.message;
+
+        console.log(errorMessage);
+        setStatusCode(error.response.status);
+        setFeedback(`Oops! ${capitalize(errorMessage)}`);
+      });
+  };
+
   const handleSignUpForHike = async () => {
     participantIds.push(userId);
 
@@ -102,7 +126,7 @@ const Hike = ({ hike: hikeInput }) => {
     };
 
     await axios
-      .put(`${BACKEND_URL}/api/hikes/${id}?populate=*`, payload)
+      .put(`${BACKEND_URL}/api/hikes/${hikeId}?populate=*`, payload)
       .then((response) => {
         const hike = response.data.data;
         setStatusCode(response.status);
@@ -123,7 +147,7 @@ const Hike = ({ hike: hikeInput }) => {
     };
 
     await axios
-      .put(`${BACKEND_URL}/api/hikes/${id}?populate=*`, payload)
+      .put(`${BACKEND_URL}/api/hikes/${hikeId}?populate=*`, payload)
       .then((response) => {
         setStatusCode(response.status);
         setFeedback("Successfully reported hike!");
@@ -145,6 +169,16 @@ const Hike = ({ hike: hikeInput }) => {
       setSeverity("warning");
     }
   }, [statusCode]);
+
+  // If hike doesn't have an image, choose placeholder
+  let photoUrl = placeholder;
+  let photoHeight = 450;
+  let photoWidth = 800;
+  if (photo?.data?.attributes?.url != null) {
+    photoUrl = `${BACKEND_URL}${photo.data.attributes.url}`;
+    photoHeight = photo.data.attributes.height;
+    photoWidth = photo.data.attributes.width;
+  }
 
   return (
     <Box
@@ -181,7 +215,17 @@ const Hike = ({ hike: hikeInput }) => {
             <Box sx={{ display: "flex", flexDirection: "row", p: 1 }}>
               {username && (
                 <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
-                  Posted by: {username}
+                  Posted by:{" "}
+                  <Link href={`/users/${ownerId}`}>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{
+                        "&:hover": { color: "lightblue", cursor: "pointer" },
+                      }}
+                    >
+                      {username}
+                    </Typography>
+                  </Link>
                 </Typography>
               )}
 
@@ -224,7 +268,28 @@ const Hike = ({ hike: hikeInput }) => {
               )}
             </Box>
 
-            <Box sx={{ display: "flex" }}></Box>
+            {ownerId === userId && (
+              <Box>
+                <Link href={`/hikes/update/${hikeId}`}>
+                  <Button
+                    variant="contained"
+                    sx={{ m: 1 }}
+                    data-cy="submit-button"
+                  >
+                    Update
+                  </Button>
+                </Link>
+
+                <Button
+                  variant="contained"
+                  sx={{ m: 1 }}
+                  onClick={handleDeleteHike}
+                  data-cy="submit-button"
+                >
+                  Delete
+                </Button>
+              </Box>
+            )}
           </Box>
 
           <Box
@@ -234,17 +299,14 @@ const Hike = ({ hike: hikeInput }) => {
               width: "60%",
             }}
           >
-            {photo.data && (
-              <Box sx={{ width: "80%", my: 2 }}>
-                <Image
-                  src={`${BACKEND_URL}${photo.data.attributes.url}`}
-                  height={photo.data.attributes.height}
-                  width={photo.data.attributes.width}
-                  object-fit="cover"
-                />
-              </Box>
-            )}
-
+            <Box sx={{ width: "80%", my: 2 }}>
+              <Image
+                src={photoUrl}
+                height={photoHeight}
+                width={photoWidth}
+                object-fit="cover"
+              />
+            </Box>
             <TableContainer
               component={Paper}
               sx={{
@@ -269,14 +331,24 @@ const Hike = ({ hike: hikeInput }) => {
                         <Box>
                           {participants.map((participant) => {
                             const {
-                              id,
+                              id: userId,
                               attributes: { username },
                             } = participant;
 
                             return (
-                              <Typography variant="subtitle1">
-                                {username}
-                              </Typography>
+                              <Link href={`/users/${userId}`}>
+                                <Typography
+                                  variant="subtitle1"
+                                  sx={{
+                                    "&:hover": {
+                                      color: "lightblue",
+                                      cursor: "pointer",
+                                    },
+                                  }}
+                                >
+                                  {username}
+                                </Typography>
+                              </Link>
                             );
                           })}
                         </Box>
