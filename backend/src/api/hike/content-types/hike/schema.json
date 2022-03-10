@@ -45,6 +45,15 @@
     "isReported": {
       "type": "boolean",
       "default": false
+    },
+    "price": {
+      "type": "float",
+      "required": true,
+      "default": 0
+    },
+    "date": {
+      "type": "datetime",
+      "required": true
     }
   }
 }
