@@ -11,10 +11,16 @@ import { getUserIdFromJwtOrUndefined } from "../lib/jwt";
 
 const HikeCard = ({ hike, columns }) => {
   const {
-    attributes: { title, photo, description, ownedBy },
+    attributes: { title, 
+      photo, 
+      description, 
+      ownedBy
+     },
     id,
   } = hike;
   const ownerId = ownedBy?.data?.id;
+
+  const isCommercial = ownedBy.data.attributes.isCommercial;
 
   let photoUrl = placeholder;
   let photoHeight = 450;
@@ -24,8 +30,14 @@ const HikeCard = ({ hike, columns }) => {
 
   if (photo.data != null) {
     photoUrl = `${BACKEND_URL}${photo.data.attributes.url}`;
-    photoHeight = photo.data.attributes.height;
-    photoWidth = photo.data.attributes.width;
+    //photoHeight = photo.data.attributes.height;
+    //photoWidth = photo.data.attributes.width;
+  }
+
+  let border = "4px solid lightgrey"
+
+  if (isCommercial) {
+    border = "4px solid #4287f5"
   }
 
   return (
@@ -35,7 +47,7 @@ const HikeCard = ({ hike, columns }) => {
       md={columns?.md || 6}
       lg={columns?.lg || 6}
     >
-      <Card style={({ backgroundColor: "lightgrey" }, { margin: "10px" })}>
+      <Card style={({ backgroundColor: "lightgrey" }, { margin: "10px" }, {border: border})}>
         <Image
           src={photoUrl}
           height={photoHeight}
