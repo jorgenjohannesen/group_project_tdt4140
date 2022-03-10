@@ -9,12 +9,13 @@ const MOCK_USER = {
   blocked: null,
 };
 
-it("should login user and return jwt token", async () => {
+it("can login user and return jwt token", async () => {
   // Creates a new user and save it to the database
   await strapi.plugins["users-permissions"].services.user.add({
     ...MOCK_USER,
   });
 
+  // Login user and return jwt token
   await request(strapi.server.httpServer)
     .post("/api/auth/local")
     .set("accept", "application/json")
