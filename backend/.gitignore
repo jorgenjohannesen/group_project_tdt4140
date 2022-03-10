@@ -112,6 +112,3 @@ exports
 *.cache
 build
 .strapi-updater.json
-
-# Custom ignores
-config/sync
