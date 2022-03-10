@@ -37,10 +37,11 @@ const Hike = ({ hike: hikeInput }) => {
       title,
       description,
       photo,
+      price,
       participants: { data: participants },
       ownedBy: {
         data: {
-          attributes: { username },
+          attributes: { username, isCommercial },
         },
       },
     },
@@ -146,6 +147,9 @@ const Hike = ({ hike: hikeInput }) => {
     }
   }, [statusCode]);
 
+  console.log(isCommercial);
+  console.log(username);
+
   return (
     <Box
       sx={{
@@ -221,6 +225,19 @@ const Hike = ({ hike: hikeInput }) => {
                 <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
                   {description}
                 </Typography>
+              )}
+            </Box>
+
+            <Box>
+              {isCommercial ? (
+                <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
+                  <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
+                    Pris:
+                    {price}
+                  </Typography>
+                </Box>
+              ) : (
+                <> </>
               )}
             </Box>
 
