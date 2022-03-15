@@ -17,6 +17,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import { getUserIdFromJwtOrUndefined } from "../../../lib/jwt";
+import { FormControl, FormLabel, FormControlLabel, RadioGroup, Radio } from "@mui/material";
+
 
 const Input = styled("input")({
   display: "none",
@@ -29,8 +31,11 @@ const UpdateHike = ({ hike }) => {
       title: hikeTitle,
       description: hikeDescription,
       photo: hikePhoto,
+      difficulty: hikeDifficulty,
     },
   } = hike;
+
+  console.log(hikeDifficulty);
 
   const router = useRouter();
 
@@ -41,6 +46,7 @@ const UpdateHike = ({ hike }) => {
   const [statusCode, setStatusCode] = useState(-1);
   const [feedback, setFeedback] = useState(undefined);
   const [severity, setSeverity] = useState(undefined);
+  const [difficulty, setDifficulty] = useState(hikeDifficulty);
 
   const handleDeleteHike = async () => {
     await axios
@@ -69,6 +75,7 @@ const UpdateHike = ({ hike }) => {
       data: {
         title: title,
         description: description,
+        difficulty: difficulty,
       },
     };
 
@@ -188,6 +195,26 @@ const UpdateHike = ({ hike }) => {
               }}
               sx={{ my: 2 }}
             />
+
+            <FormControl>
+              <FormLabel id="demo-controlled-radio-buttons-group">Difficulty</FormLabel>
+              <RadioGroup
+                row
+                defaultValue={hikeDifficulty}
+                difficulty={hikeDifficulty}
+                onChange={(event) => {
+                  setDifficulty(event.target.value);
+                  console.log(difficulty);
+                }}
+
+              >
+                <FormControlLabel value="easy" control={<Radio />} label="Easy" />
+                <FormControlLabel value="medium" control={<Radio />} label="Medium" />
+                <FormControlLabel value="hard" control={<Radio />} label="Hard" />
+                <FormControlLabel value="none" control={<Radio />} label="None" />
+              </RadioGroup>
+            </FormControl>
+
             <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
               <Typography variant="subtitle1" sx={{ fontSize: 18 }}>
                 Click the camera to upload an image

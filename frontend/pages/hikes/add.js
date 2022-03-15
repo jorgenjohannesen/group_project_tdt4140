@@ -145,7 +145,6 @@ const Add = () => {
             difficulty={difficulty}
             onChange={(event) => {
               setDifficulty(event.target.value);
-              console.log(difficulty)
             }}
           >
             <FormControlLabel value="easy" control={<Radio />} label="Easy" />
