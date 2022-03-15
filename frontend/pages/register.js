@@ -56,7 +56,11 @@ const Register = () => {
             .toLowerCase()
             .includes("error occurred during account creation")
         ) {
-          setFeedback("Oops! Username is already taken.");
+          setFeedback(
+            `Oops! ${capitalize(
+              errorMessage
+            )}. Make sure you have set a username, email and that password is at least 6 characters long.`
+          );
         } else {
           setFeedback(`Oops! ${capitalize(errorMessage)}.`);
         }
@@ -136,15 +140,13 @@ const Register = () => {
           data-cy="input-password"
         />
         <FormControlLabel
-          labelPlacement='start'
+          labelPlacement="start"
           sx={{ mr: 1 }}
-          control={<Checkbox defaultUnchecked
-            data-cy="checkbox-commercial"
-          />}
+          control={<Checkbox defaultUnchecked data-cy="checkbox-commercial" />}
           label="Are you a commercial user?"
           onChange={(event) => {
             const isChecked = event.target.checked;
-            setIsCommercial(isChecked)
+            setIsCommercial(isChecked);
           }}
         />
         <Button
