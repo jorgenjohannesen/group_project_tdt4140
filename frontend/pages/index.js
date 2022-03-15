@@ -4,17 +4,38 @@ import HikeListIndex from "../components/HikeListIndex";
 import Box from "@mui/material/Box";
 import { useEffect, useState } from "react";
 import Alert from "@mui/material/Alert";
+import { Button, Card, TextField, Typography } from "@mui/material";
 
 const Home = ({ hikes }) => {
   const [feedback, setFeedback] = useState(undefined);
   const [severity, setSeverity] = useState(undefined);
+  const [textFilter, setTextFilter] = useState("");
+  const [filteredHikes, setFilteredHikes] = useState(hikes);
 
   useEffect(() => {
-    if (!hikes || hikes?.length == 0) {
+    if (!filteredHikes || filteredHikes?.length == 0) {
       setSeverity("info");
       setFeedback("Oops! Doesn't look like there are any hikes to display.");
     }
   }, []);
+
+  function useFilter() {
+    setSeverity(undefined);
+    setFeedback(undefined);
+
+    const newHikeList = hikes.filter(hike => {
+      if (hike.attributes.title.toUpperCase().includes(textFilter.toUpperCase()) || hike.attributes.description.toUpperCase().includes(textFilter.toUpperCase())) {
+        return hike;
+      }
+    });
+
+    setFilteredHikes(newHikeList);
+
+    if (newHikeList?.length == 0) {
+      setSeverity("info");
+      setFeedback("Oops! Doesn't look like there are any hikes to display.");
+    }
+  }
 
   return (
     <Container sx={{ mb: 12 }}>
@@ -25,6 +46,16 @@ const Home = ({ hikes }) => {
         }}
       >
         <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Card sx={{ backgroundColor: "#ededed", padding: "1em", marginBottom: "1em" }}>
+            <Typography variant="h6">Filters:</Typography>
+            <Box sx={{ margin: "0.5em 0 ", display: "flex", flexDirection: "row" }}>
+              <Box sx={{ marginRight: "1em", display: "flex", flexDirection: "row" }}>
+                <Typography sx={{ marginRight: "0.2em" }}>Search for text: </Typography>
+                <TextField onChange={e => setTextFilter(e.target.value)} value={textFilter} size="small" variant="standard" />
+              </Box>
+            </Box>
+            <Button variant="outlined" onClick={useFilter}>Apply</Button>
+          </Card>
           {feedback && (
             <Alert
               severity={severity}
@@ -34,7 +65,7 @@ const Home = ({ hikes }) => {
               {feedback}
             </Alert>
           )}
-          <HikeListIndex hikes={hikes} />
+          <HikeListIndex hikes={filteredHikes} />
         </Box>
       </Box>
     </Container>
