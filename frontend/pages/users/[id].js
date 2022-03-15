@@ -70,31 +70,6 @@ const User = ({ yourHikes, participatedHikes, owner, profilePictureURL }) => {
         </Grid>}
       </Grid>
     </Grid>);
-  // return (
-  //   <Container maxWidth="xl">
-  //     <Grid container spacing={2}>
-  //       {isCommercial && (
-  //         <Box>
-  //           <Typography variant="h5">Who is {username}?</Typography>
-  //           <Typography variant="subtitle1">{description}</Typography>
-  //         </Box>
-  //       )}
-  //       <Grid container item xs={12} md={6}>
-  //         <Typography variant="h4">
-  //           {ownerId == userId ? "Your " : `${username}'s`} hikes
-  //         </Typography>
-  //         <HikeListUser hikes={yourHikes}></HikeListUser>
-  //       </Grid>
-  //       <Grid container item xs={12} md={6}>
-  //         <Typography variant="h4">
-  //           Hikes {ownerId == userId ? "you've" : `${username} has`}{" "}
-  //           participated in
-  //         </Typography>
-  //         <HikeListUser hikes={participatedHikes}></HikeListUser>
-  //       </Grid>
-  //     </Grid>
-  //   </Container>
-  // );
 };
 
 export const getServerSideProps = async (context) => {
@@ -116,10 +91,17 @@ export const getServerSideProps = async (context) => {
     return false;
   });
 
-  const profilePictureURL = `${BACKEND_URL}/uploads/27_bb3b0c988b.jpg`;
-
   const ownerResponse = await fetch(`${BACKEND_URL}/api/users/${id}`);
   const owner = await ownerResponse.json();
+
+  let profilePictureURL = `${BACKEND_URL}/uploads/27_bb3b0c988b.jpg`;
+  if (owner.profilePictureFileName != null) {
+    const profilePictureResponse = await fetch(`${BACKEND_URL}/api/upload/files/${owner.profilePictureFileName}`);
+    const profilePicture = await profilePictureResponse.json();
+    if(profilePicture.url != null){
+      profilePictureURL = `${BACKEND_URL}${profilePicture?.url}`
+    }
+  }
 
   return { props: { yourHikes, participatedHikes, owner, profilePictureURL } };
 };
