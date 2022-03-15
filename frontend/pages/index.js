@@ -5,11 +5,11 @@ import Box from "@mui/material/Box";
 import { useEffect, useState } from "react";
 import Alert from "@mui/material/Alert";
 import { Button, Card, TextField, Typography } from "@mui/material";
+import FilterCard from "../components/FilterCard";
 
 const Home = ({ hikes }) => {
   const [feedback, setFeedback] = useState(undefined);
   const [severity, setSeverity] = useState(undefined);
-  const [textFilter, setTextFilter] = useState("");
   const [filteredHikes, setFilteredHikes] = useState(hikes);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const Home = ({ hikes }) => {
     }
   }, []);
 
-  function useFilter() {
+  function useFilter(textFilter) {
     setSeverity(undefined);
     setFeedback(undefined);
 
@@ -46,16 +46,7 @@ const Home = ({ hikes }) => {
         }}
       >
         <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <Card sx={{ backgroundColor: "#ededed", padding: "1em", marginBottom: "1em" }}>
-            <Typography variant="h6">Filters:</Typography>
-            <Box sx={{ margin: "0.5em 0 ", display: "flex", flexDirection: "row" }}>
-              <Box sx={{ marginRight: "1em", display: "flex", flexDirection: "row" }}>
-                <Typography sx={{ marginRight: "0.2em" }}>Search for text: </Typography>
-                <TextField onChange={e => setTextFilter(e.target.value)} value={textFilter} size="small" variant="standard" />
-              </Box>
-            </Box>
-            <Button variant="outlined" onClick={useFilter}>Apply</Button>
-          </Card>
+          <FilterCard useFilter={useFilter} />
           {feedback && (
             <Alert
               severity={severity}
