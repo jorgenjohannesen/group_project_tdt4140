@@ -40,6 +40,7 @@ const Hike = ({ hike: hikeInput }) => {
       description,
       photo,
       price,
+      difficulty,
       participants: { data: participants },
       ownedBy: {
         data: {
@@ -255,6 +256,14 @@ const Hike = ({ hike: hikeInput }) => {
                     ? "Sign off for hike"
                     : "Sign up for hike"}
                 </Button>
+              )}
+            </Box>
+
+            <Box sx={{ display: "flex", alignItems: "center", my: 1, mb: 0 }}>
+              {difficulty !== "none" && (
+                <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
+                  Difficulty: {capitalize(difficulty)}
+                </Typography>
               )}
             </Box>
 
