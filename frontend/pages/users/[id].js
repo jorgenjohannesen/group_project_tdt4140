@@ -4,6 +4,7 @@ import HikeListUser from "../../components/HikeListUser";
 import { BACKEND_URL } from "../../utils/constants";
 import { useState, useEffect } from "react";
 import { getUserIdFromJwtOrUndefined } from "../../lib/jwt";
+import Box from "@mui/material/Box";
 
 const User = ({ yourHikes, participatedHikes, owner }) => {
   const [userId, setUserId] = useState(undefined);
@@ -15,18 +16,24 @@ const User = ({ yourHikes, participatedHikes, owner }) => {
     }
   }, []);
 
-  const { id: ownerId, username } = owner;
+  const { id: ownerId, username, email, isCommercial, description } = owner;
 
   return (
     <Container maxWidth="xl">
       <Grid container spacing={2}>
-        <Grid container item xs={12} md={8}>
+        {isCommercial && (
+          <Box>
+            <Typography variant="h5">Who is {username}?</Typography>
+            <Typography variant="subtitle1">{description}</Typography>
+          </Box>
+        )}
+        <Grid container item xs={12} md={6}>
           <Typography variant="h4">
             {ownerId == userId ? "Your " : `${username}'s`} hikes
           </Typography>
           <HikeListUser hikes={yourHikes}></HikeListUser>
         </Grid>
-        <Grid container item xs={12} md={4}>
+        <Grid container item xs={12} md={6}>
           <Typography variant="h4">
             Hikes {ownerId == userId ? "you've" : `${username} has`}{" "}
             participated in
