@@ -17,21 +17,13 @@ import { getUserIdFromJwtOrUndefined } from "../lib/jwt";
 import LoginIcon from "@mui/icons-material/Login";
 import { useRouter } from "next/router";
 
-const pages = [
-  // "Hikes",
-  // "Pricing",
-  // "Blog"
-];
-
 const Navbar = () => {
-  const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [userIsLoggedIn, setUserIsLogggedIn] = useState(false);
   const [userId, setUserId] = useState(undefined);
 
   const settings = [
     { label: "Your profile", href: `/users/${userId}` },
-    // "Account",
     { label: "Logout", href: "/logout" },
   ];
 
@@ -68,35 +60,22 @@ const Navbar = () => {
               component="div"
               sx={{
                 mr: 2,
-                display: { xs: "none", md: "flex" },
+                flexGrow: { xs: 1 },
+                display: "flex",
                 "&:hover": { cursor: "pointer", color: "darkgrey" },
               }}
+              data-cy="navbar-index-link"
             >
               HikeLink
             </Typography>
           </Link>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-          >
-            HikeLink
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
+
+          {/* Let this Box be */}
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }} />
+
           <Box sx={{ pr: 4 }}>
             {userIsLoggedIn ? (
-              <Link href="/hikes/add">
+              <Link href="/hikes/add" data-cy="navbar-add-hike-link">
                 <Button
                   variant="contained"
                   sx={{
@@ -121,6 +100,7 @@ const Navbar = () => {
                       "&:hover": { backgroundColor: "white" },
                     }}
                     startIcon={<LoginIcon />}
+                    data-cy="navbar-login-page-button"
                   >
                     Login
                   </Button>
@@ -136,6 +116,7 @@ const Navbar = () => {
                       "&:hover": { backgroundColor: "white" },
                     }}
                     startIcon={<AddIcon />}
+                    data-cy="navbar-register-page-button"
                   >
                     Register
                   </Button>

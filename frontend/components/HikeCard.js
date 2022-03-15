@@ -21,8 +21,6 @@ const HikeCard = ({ hike, columns }) => {
   const isCommercial = ownedBy?.data?.attributes?.isCommercial;
   const username = ownedBy?.data?.attributes?.username;
 
-  console.log(isCommercial);
-
   let photoUrl = placeholder;
   let photoHeight = 450;
   let photoWidth = 800;

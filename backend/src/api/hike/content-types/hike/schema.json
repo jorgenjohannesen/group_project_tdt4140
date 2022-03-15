@@ -65,6 +65,9 @@
       ],
       "required": true,
       "default": "none"
+    },
+    "maxNumberOfParticipants": {
+      "type": "integer"
     }
   }
 }

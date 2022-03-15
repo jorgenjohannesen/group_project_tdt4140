@@ -25,22 +25,39 @@ const Input = styled("input")({
 });
 
 const UpdateHike = ({ hike }) => {
+  console.log(hike);
+
   const {
     id: hikeId,
     attributes: {
       title: hikeTitle,
       description: hikeDescription,
       photo: hikePhoto,
+<<<<<<< HEAD
       difficulty: hikeDifficulty,
     },
   } = hike;
 
   console.log(hikeDifficulty);
+=======
+      price: hikePrice,
+      ownedBy: {
+        data: {
+          attributes: { username, isCommercial },
+          id: ownerId,
+        },
+      },
+    },
+  } = hike;
+
+  console.log(isCommercial);
+>>>>>>> dev
 
   const router = useRouter();
 
   const [title, setTitle] = useState(hikeTitle);
   const [description, setDescription] = useState(hikeDescription);
+  const [price, setPrice] = useState(hikePrice);
   const [downloadedPhoto, _] = useState(hikePhoto);
   const [photoToUpload, setPhotoToUpload] = useState(undefined);
   const [statusCode, setStatusCode] = useState(-1);
@@ -195,6 +212,7 @@ const UpdateHike = ({ hike }) => {
               }}
               sx={{ my: 2 }}
             />
+<<<<<<< HEAD
 
             <FormControl>
               <FormLabel id="demo-controlled-radio-buttons-group">Difficulty</FormLabel>
@@ -214,6 +232,22 @@ const UpdateHike = ({ hike }) => {
                 <FormControlLabel value="none" control={<Radio />} label="None" />
               </RadioGroup>
             </FormControl>
+=======
+            {isCommercial && (
+              <Box>
+                <TextField
+                  required
+                  label="Price"
+                  variant="outlined"
+                  onChange={(event) => {
+                    const input = event.target.value;
+                    setPrice(input);
+                  }}
+                  sx={{ width: 1 / 4, my: 2 }}
+                />
+              </Box>
+            )}
+>>>>>>> dev
 
             <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
               <Typography variant="subtitle1" sx={{ fontSize: 18 }}>
