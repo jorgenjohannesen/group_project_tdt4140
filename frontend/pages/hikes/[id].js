@@ -109,10 +109,8 @@ const Hike = ({ hike: hikeInput }) => {
         router.push("/");
       })
       .catch((error) => {
-        console.log(error);
         const errorMessage = error.response.data.error.message;
 
-        console.log(errorMessage);
         setStatusCode(error.response.status);
         setFeedback(`Oops! ${capitalize(errorMessage)}`);
       });
