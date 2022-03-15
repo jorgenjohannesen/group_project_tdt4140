@@ -40,6 +40,7 @@ const Hike = ({ hike: hikeInput }) => {
       description,
       photo,
       price,
+      difficulty,
       participants: { data: participants },
       ownedBy: {
         data: {
@@ -258,6 +259,13 @@ const Hike = ({ hike: hikeInput }) => {
                     : "Sign up for hike"}
                 </Button>
               )}
+            </Box>
+            <Box sx={{ display: "flex", alignItems: "center", my: 1, mb: 0 }}>
+              {difficulty &&
+                (<Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
+                  Difficulty: {difficulty}
+                </Typography>
+                )}
             </Box>
 
             <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
