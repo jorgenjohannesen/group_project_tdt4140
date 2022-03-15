@@ -17,4 +17,8 @@ describe("Register page", () => {
     // Check that we ended up on the login page
     cy.location("pathname").should("match", /\/login$/);
   });
+  it("can toggle if user is commercial", () => {
+    cy.get('input[type="checkbox"]').check().should('be.checked');
+    cy.get('input[type="checkbox"]').uncheck().should('not.be.checked');
+  })
 });

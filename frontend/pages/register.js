@@ -7,7 +7,7 @@ import { BACKEND_URL, STATUS } from "../utils/constants";
 import Alert from "@mui/material/Alert";
 import isEmpty from "../utils/isEmpty";
 import capitalize from "../utils/capitalize";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Checkbox, FormControlLabel } from "@mui/material";
 import Link from "@mui/material/Link";
 import { setJwtIfDefined } from "../lib/jwt";
 
@@ -15,6 +15,7 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isCommercial, setIsCommercial] = useState(false);
   const [statusCode, setStatusCode] = useState(-1);
   const [feedback, setFeedback] = useState(undefined);
   const [severity, setSeverity] = useState(undefined);
@@ -34,6 +35,7 @@ const Register = () => {
       username: username,
       email: email,
       password: password,
+      isCommercial: isCommercial,
     };
 
     // POST user to backend
@@ -133,7 +135,18 @@ const Register = () => {
           sx={{ m: 1 }}
           data-cy="input-password"
         />
-
+        <FormControlLabel
+          labelPlacement='start'
+          sx={{ mr: 1 }}
+          control={<Checkbox defaultUnchecked
+            data-cy="checkbox-commercial"
+          />}
+          label="Are you a commercial user?"
+          onChange={(event) => {
+            const isChecked = event.target.checked;
+            setIsCommercial(isChecked)
+          }}
+        />
         <Button
           variant="contained"
           onClick={handleSubmit}
