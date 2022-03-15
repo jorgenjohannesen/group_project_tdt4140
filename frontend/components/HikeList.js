@@ -6,9 +6,9 @@ import Box from "@mui/material/Box";
 const HikeList = ({ hikes }) => {
   return (
     <Grid container spacing={2}>
-      {hikes.map((hike, index) => (
+      {hikes ? hikes.map((hike, index) => (
         <HikeCard hike={hike} key={index} />
-      ))}
+      )) : <></>}
     </Grid>
   );
 };

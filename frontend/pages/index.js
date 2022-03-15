@@ -10,7 +10,7 @@ const Home = ({ hikes }) => {
   const [severity, setSeverity] = useState(undefined);
 
   useEffect(() => {
-    if (hikes.length == 0) {
+    if (!hikes || hikes?.length == 0) {
       setSeverity("info");
       setFeedback("Oops! Doesn't look like there are any hikes to display.");
     }
