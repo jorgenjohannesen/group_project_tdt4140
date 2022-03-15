@@ -13,6 +13,7 @@ import isEmpty from "../../utils/isEmpty";
 import capitalize from "../../utils/capitalize";
 import Typography from "@mui/material/Typography";
 import { getUserIdFromJwtOrUndefined } from "../../lib/jwt";
+import { FormGroup, FormControlLabel, Checkbox } from "@mui/material";
 
 const Input = styled("input")({
   display: "none",
@@ -26,6 +27,8 @@ const Add = ({ owner }) => {
   const [severity, setSeverity] = useState(undefined);
   const [photo, setPhoto] = useState(undefined);
   const [price, setPrice] = useState(0);
+  const [maxNumberOfParticipantsIsChecked, setMaxNumberOfParticipantsIsChecked] = useState(false);
+  const [maxNumberOfParticipants, setMaxNumberOfParticipants] = useState(0);
 
   const handleSubmit = async () => {
     // Check that user input is not empty
@@ -40,6 +43,7 @@ const Add = ({ owner }) => {
         description: description,
         price: price,
         ownedBy: getUserIdFromJwtOrUndefined(),
+        maxNumberOfParticipants: maxNumberOfParticipants,
       },
     };
 
@@ -139,6 +143,37 @@ const Add = ({ owner }) => {
           sx={{ width: 1 / 2, my: 2 }}
         />
 
+        <Box sx={{ display: 'flex' }}>
+          <FormGroup sx={{ margin: 1 }}>
+            <FormControlLabel
+              control={<Checkbox />}
+              label="Set max number of participants?"
+              labelPlacement="start"
+              onChange={(event) => {
+                const input = event.target.checked;
+                setMaxNumberOfParticipantsIsChecked(input);
+                setMaxNumberOfParticipants(null);
+              }} />
+          </FormGroup>
+          {maxNumberOfParticipantsIsChecked &&
+            <TextField
+              type="number"
+              value={maxNumberOfParticipants}
+              label="Max Number Of Participants"
+              variant="outlined"
+              onChange={(event) => {
+                const input = event.target.value;
+                if (isNaN(parseInt(input))) {
+                  setMaxNumberOfParticipants(1);
+                } else {
+                  setMaxNumberOfParticipants(parseInt(input));
+                }
+              }}
+              sx={{ width: 1 / 6, my: 2 }}
+            />
+          }
+
+        </Box>
         {owner.isCommercial && (
           <Box>
             <TextField
