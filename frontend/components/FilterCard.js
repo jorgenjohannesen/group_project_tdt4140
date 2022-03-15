@@ -15,10 +15,10 @@ const FilterCard = ({ useFilter }) => {
                 <Box sx={{ margin: "0.5em 0 ", display: "flex", flexDirection: "row" }}>
                     <Box sx={{ marginRight: "1em", display: "flex", flexDirection: "row" }}>
                         <Typography sx={{ marginRight: "0.2em" }}>Search for text: </Typography>
-                        <TextField onChange={e => setTextFilter(e.target.value)} value={textFilter} size="small" variant="standard" />
+                        <TextField data-cy="textFilter" onChange={e => setTextFilter(e.target.value)} value={textFilter} size="small" variant="standard" />
                     </Box>
                 </Box>
-            <Button variant="outlined" onClick={sendFilter}>Apply</Button>
+            <Button data-cy="filterButton" variant="outlined" onClick={sendFilter}>Apply</Button>
         </Card>
     )
 }
