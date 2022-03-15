@@ -18,13 +18,14 @@ const Input = styled("input")({
   display: "none",
 });
 
-const Add = () => {
+const Add = ({ owner }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [statusCode, setStatusCode] = useState(-1);
   const [feedback, setFeedback] = useState(undefined);
   const [severity, setSeverity] = useState(undefined);
   const [photo, setPhoto] = useState(undefined);
+  const [price, setPrice] = useState(0);
 
   const handleSubmit = async () => {
     // Check that user input is not empty
@@ -32,10 +33,12 @@ const Add = () => {
       setFeedback("All input fields must be filled in.");
       return;
     }
+
     const payload = {
       data: {
         title: title,
         description: description,
+        price: price,
         ownedBy: getUserIdFromJwtOrUndefined(),
       },
     };
@@ -136,6 +139,21 @@ const Add = () => {
           sx={{ width: 1 / 2, my: 2 }}
         />
 
+        {owner.isCommercial && (
+          <Box>
+            <TextField
+              required
+              label="Price"
+              variant="outlined"
+              onChange={(event) => {
+                const input = event.target.value;
+                setPrice(input);
+              }}
+              sx={{ width: 1 / 4, my: 2 }}
+            />
+          </Box>
+        )}
+
         <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
           <Typography variant="subtitle1" sx={{ fontSize: 18 }}>
             Click the camera to upload an image
@@ -183,7 +201,10 @@ export const getServerSideProps = async (context) => {
     return { redirect: { destination: "/", permanent: false } };
   }
 
-  return { props: {} };
+  const response = await fetch(`${BACKEND_URL}/api/users/${userId}`);
+  const owner = await response.json();
+
+  return { props: { owner } };
 };
 
 export default Add;
