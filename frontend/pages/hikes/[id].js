@@ -260,8 +260,9 @@ const Hike = ({ hike: hikeInput }) => {
                 </Button>
               )}
             </Box>
+
             <Box sx={{ display: "flex", alignItems: "center", my: 1, mb: 0 }}>
-              {difficulty &&
+              {difficulty !== "none" &&
                 (<Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
                   Difficulty: {difficulty}
                 </Typography>
