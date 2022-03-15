@@ -120,6 +120,13 @@ const Hike = ({ hike: hikeInput }) => {
   };
 
   const handleSignUpForHike = async () => {
+    if (participants.length == maxNumberOfParticipants) {
+      setStatusCode(STATUS.BAD_REQUEST);
+      setFeedback(
+        "The number of participants is already reached. You cannot sign up for this hike."
+      );
+      return;
+    }
     participantIds.push(userId);
 
     const payload = {
