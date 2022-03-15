@@ -23,6 +23,7 @@ import capitalize from "../../utils/capitalize";
 import Link from "next/link";
 import router from "next/router";
 import placeholder from "/placeholder.jpg";
+import formatBasedOnParticipants from "../../utils/formatBasedOnParticipants";
 
 const Hike = ({ hike: hikeInput }) => {
   const [userId, setUserId] = useState(undefined);
@@ -47,8 +48,11 @@ const Hike = ({ hike: hikeInput }) => {
           id: ownerId,
         },
       },
+      maxNumberOfParticipants,
     },
   } = hike;
+
+  console.log(maxNumberOfParticipants);
 
   // Set userId when page loads
   useEffect(() => {
@@ -105,7 +109,6 @@ const Hike = ({ hike: hikeInput }) => {
         setStatusCode(response.status);
         setFeedback("Successfully deleted hike!");
 
-        // Wait for provided time, and then route user to the index page
         router.push("/");
       })
       .catch((error) => {
@@ -305,7 +308,12 @@ const Hike = ({ hike: hikeInput }) => {
                 <TableHead>
                   <TableRow>
                     <TableCell sx={{ fontWeight: "bold", fontSize: 20 }}>
-                      Participants
+                      Participants (
+                      {formatBasedOnParticipants(
+                        participants,
+                        maxNumberOfParticipants
+                      )}
+                      )
                     </TableCell>
                   </TableRow>
                 </TableHead>
