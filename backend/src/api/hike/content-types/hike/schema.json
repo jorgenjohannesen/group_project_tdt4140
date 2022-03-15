@@ -53,7 +53,10 @@
     },
     "date": {
       "type": "datetime",
-      "required": true
+      "required": false
+    },
+    "maxNumberOfParticipants": {
+      "type": "integer"
     }
   }
 }
