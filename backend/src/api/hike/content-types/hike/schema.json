@@ -55,6 +55,17 @@
       "type": "datetime",
       "required": false
     },
+    "difficulty": {
+      "type": "enumeration",
+      "enum": [
+        "easy",
+        "medium",
+        "hard",
+        "none"
+      ],
+      "required": true,
+      "default": "none"
+    },
     "maxNumberOfParticipants": {
       "type": "integer"
     }
