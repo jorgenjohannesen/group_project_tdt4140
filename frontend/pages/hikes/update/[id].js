@@ -222,14 +222,13 @@ const UpdateHike = ({ hike }) => {
             )}
 
             {!isNaN(maxNumberOfParticipants) && (
-              <Box sx={{ display: 'flex' }}>
+              <Box >
                 <FormGroup sx={{ margin: 1 }}>
                   <FormControlLabel
                     control={<Checkbox
                       checked={maxNumberOfParticipantsIsChecked}
                     />}
                     label="Set max number of participants?"
-                    labelPlacement="start"
                     onChange={(event) => {
                       const input = event.target.checked;
                       setMaxNumberOfParticipantsIsChecked(input);
@@ -253,7 +252,7 @@ const UpdateHike = ({ hike }) => {
                         setMaxNumberOfParticipants(parseInt(input));
                       }
                     }}
-                    sx={{ width: 1 / 6, my: 2 }}
+                    sx={{ width: 1 / 4, my: 2 }}
                   />
                 }
 

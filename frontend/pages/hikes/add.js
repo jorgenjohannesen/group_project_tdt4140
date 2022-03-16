@@ -143,37 +143,34 @@ const Add = ({ owner }) => {
           sx={{ width: 1 / 2, my: 2 }}
         />
 
-        <Box sx={{ display: 'flex' }}>
-          <FormGroup sx={{ margin: 1 }}>
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Set max number of participants?"
-              labelPlacement="start"
-              onChange={(event) => {
-                const input = event.target.checked;
-                setMaxNumberOfParticipantsIsChecked(input);
-                setMaxNumberOfParticipants(null);
-              }} />
-          </FormGroup>
-          {maxNumberOfParticipantsIsChecked &&
-            <TextField
-              type="number"
-              value={maxNumberOfParticipants}
-              label="Max Number Of Participants"
-              variant="outlined"
-              onChange={(event) => {
-                const input = event.target.value;
-                if (isNaN(parseInt(input))) {
-                  setMaxNumberOfParticipants(1);
-                } else {
-                  setMaxNumberOfParticipants(parseInt(input));
-                }
-              }}
-              sx={{ width: 1 / 6, my: 2 }}
-            />
-          }
+        <FormGroup sx={{ margin: 1 }}>
+          <FormControlLabel
+            control={<Checkbox />}
+            label="Set max number of participants?"
+            onChange={(event) => {
+              const input = event.target.checked;
+              setMaxNumberOfParticipantsIsChecked(input);
+              setMaxNumberOfParticipants(null);
+            }} />
+        </FormGroup>
+        {maxNumberOfParticipantsIsChecked &&
+          <TextField
+            type="number"
+            value={maxNumberOfParticipants}
+            label="Max Number Of Participants"
+            variant="outlined"
+            onChange={(event) => {
+              const input = event.target.value;
+              if (isNaN(parseInt(input))) {
+                setMaxNumberOfParticipants(1);
+              } else {
+                setMaxNumberOfParticipants(parseInt(input));
+              }
+            }}
+            sx={{ width: 1 / 6, my: 2 }}
+          />
+        }
 
-        </Box>
         {owner.isCommercial && (
           <Box>
             <TextField
@@ -225,7 +222,7 @@ const Add = ({ owner }) => {
           Add hike
         </Button>
       </Box>
-    </Box>
+    </Box >
   );
 };
 
