@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import AddIcon from "@mui/icons-material/Add";
+import { FormControl, FormLabel, FormControlLabel, RadioGroup, Radio } from "@mui/material";
 import { useEffect, useState } from "react";
 import { BACKEND_URL, STATUS } from "../../utils/constants";
 import axios from "axios";
@@ -23,6 +24,7 @@ const Add = ({ owner }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [statusCode, setStatusCode] = useState(-1);
+  const [difficulty, setDifficulty] = useState("")
   const [feedback, setFeedback] = useState(undefined);
   const [severity, setSeverity] = useState(undefined);
   const [photo, setPhoto] = useState(undefined);
@@ -44,6 +46,7 @@ const Add = ({ owner }) => {
         price: price,
         ownedBy: getUserIdFromJwtOrUndefined(),
         maxNumberOfParticipants: maxNumberOfParticipants,
+        difficulty: difficulty,
       },
     };
 
@@ -142,6 +145,21 @@ const Add = ({ owner }) => {
           }}
           sx={{ width: 1 / 2, my: 2 }}
         />
+        <FormControl>
+          <FormLabel id="demo-controlled-radio-buttons-group">Difficulty</FormLabel>
+          <RadioGroup
+            row
+            difficulty={difficulty}
+            onChange={(event) => {
+              setDifficulty(event.target.value);
+            }}
+          >
+            <FormControlLabel value="easy" control={<Radio />} label="Easy" />
+            <FormControlLabel value="medium" control={<Radio />} label="Medium" />
+            <FormControlLabel value="hard" control={<Radio />} label="Hard" />
+            <FormControlLabel value="none" control={<Radio />} label="None" />
+          </RadioGroup>
+        </FormControl>
 
         <FormGroup sx={{ margin: 1 }}>
           <FormControlLabel

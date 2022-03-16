@@ -17,21 +17,27 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import { getUserIdFromJwtOrUndefined } from "../../../lib/jwt";
-import { FormGroup, FormControlLabel, Checkbox } from "@mui/material";
+import {
+  FormControl,
+  FormLabel,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
+  Checkbox
+} from "@mui/material";
 
 const Input = styled("input")({
   display: "none",
 });
 
 const UpdateHike = ({ hike }) => {
-  console.log(hike);
-
   const {
     id: hikeId,
     attributes: {
       title: hikeTitle,
       description: hikeDescription,
       photo: hikePhoto,
+      difficulty: hikeDifficulty,
       price: hikePrice,
       maxNumberOfParticipants: hikeMaxNumberOfParticipants,
       maxNumberOfParticipantsIsChecked: hikeMaxNumberOfParticipantsIsChecked,
@@ -43,7 +49,6 @@ const UpdateHike = ({ hike }) => {
       },
     },
   } = hike;
-
 
   const router = useRouter();
 
@@ -57,6 +62,7 @@ const UpdateHike = ({ hike }) => {
   const [severity, setSeverity] = useState(undefined);
   const [maxNumberOfParticipants, setMaxNumberOfParticipants] = useState(hikeMaxNumberOfParticipants);
   const [maxNumberOfParticipantsIsChecked, setMaxNumberOfParticipantsIsChecked] = useState(hikeMaxNumberOfParticipantsIsChecked);
+  const [difficulty, setDifficulty] = useState(hikeDifficulty);
 
   const handleDeleteHike = async () => {
     await axios
@@ -87,6 +93,7 @@ const UpdateHike = ({ hike }) => {
         description: description,
         maxNumberOfParticipants: maxNumberOfParticipants,
         maxNumberOfParticipantsIsChecked: maxNumberOfParticipantsIsChecked,
+        difficulty: difficulty,
       },
     };
 
@@ -206,6 +213,43 @@ const UpdateHike = ({ hike }) => {
               }}
               sx={{ my: 2 }}
             />
+
+            <FormControl>
+              <FormLabel id="demo-controlled-radio-buttons-group">
+                Difficulty
+              </FormLabel>
+              <RadioGroup
+                row
+                defaultValue={hikeDifficulty}
+                difficulty={hikeDifficulty}
+                onChange={(event) => {
+                  setDifficulty(event.target.value);
+                  console.log(difficulty);
+                }}
+              >
+                <FormControlLabel
+                  value="easy"
+                  control={<Radio />}
+                  label="Easy"
+                />
+                <FormControlLabel
+                  value="medium"
+                  control={<Radio />}
+                  label="Medium"
+                />
+                <FormControlLabel
+                  value="hard"
+                  control={<Radio />}
+                  label="Hard"
+                />
+                <FormControlLabel
+                  value="none"
+                  control={<Radio />}
+                  label="None"
+                />
+              </RadioGroup>
+            </FormControl>
+
             {isCommercial && (
               <Box>
                 <TextField

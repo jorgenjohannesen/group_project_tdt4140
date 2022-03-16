@@ -50,7 +50,7 @@ export const getServerSideProps = async () => {
   // Sort hikes such that the most recent hike is first in the array
   if (hikes) {
     hikes.sort(
-      (a, b) => -a.attributes.createdAt.localeCompare(b.attributes.createdAt)
+      (a, b) => -a.attributes.updatedAt.localeCompare(b.attributes.updatedAt)
     );
   }
 
