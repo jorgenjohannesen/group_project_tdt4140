@@ -14,7 +14,7 @@ const Layout = ({ title, children }) => {
         <link rel="icon" href="/img/logo.png" />
       </Head>
 
-      <div>
+      <div style={{display: "flex", flexDirection: "column", minHeight: "100vh"}}>
         <header>
           <Navbar />
         </header>
@@ -23,7 +23,7 @@ const Layout = ({ title, children }) => {
           <Container>{children}</Container>
         </main>
 
-        <footer>
+        <footer style={{flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end"}}>
           <Footer />
         </footer>
       </div>
