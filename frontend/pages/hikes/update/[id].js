@@ -18,11 +18,13 @@ import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import { getUserIdFromJwtOrUndefined } from "../../../lib/jwt";
 import {
+  FormGroup,
   FormControl,
   FormLabel,
   FormControlLabel,
   RadioGroup,
   Radio,
+  Checkbox,
 } from "@mui/material";
 
 const Input = styled("input")({
@@ -38,6 +40,8 @@ const UpdateHike = ({ hike }) => {
       photo: hikePhoto,
       difficulty: hikeDifficulty,
       price: hikePrice,
+      maxNumberOfParticipants: hikeMaxNumberOfParticipants,
+      maxNumberOfParticipantsIsChecked: hikeMaxNumberOfParticipantsIsChecked,
       ownedBy: {
         data: {
           attributes: { username, isCommercial },
@@ -57,6 +61,13 @@ const UpdateHike = ({ hike }) => {
   const [statusCode, setStatusCode] = useState(-1);
   const [feedback, setFeedback] = useState(undefined);
   const [severity, setSeverity] = useState(undefined);
+  const [maxNumberOfParticipants, setMaxNumberOfParticipants] = useState(
+    hikeMaxNumberOfParticipants
+  );
+  const [
+    maxNumberOfParticipantsIsChecked,
+    setMaxNumberOfParticipantsIsChecked,
+  ] = useState(hikeMaxNumberOfParticipantsIsChecked);
   const [difficulty, setDifficulty] = useState(hikeDifficulty);
 
   const handleDeleteHike = async () => {
@@ -86,6 +97,8 @@ const UpdateHike = ({ hike }) => {
       data: {
         title: title,
         description: description,
+        maxNumberOfParticipants: maxNumberOfParticipants,
+        maxNumberOfParticipantsIsChecked: maxNumberOfParticipantsIsChecked,
         difficulty: difficulty,
       },
     };
@@ -258,6 +271,42 @@ const UpdateHike = ({ hike }) => {
               </Box>
             )}
 
+            {!isNaN(maxNumberOfParticipants) && (
+              <Box>
+                <FormGroup sx={{ margin: 1 }}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={maxNumberOfParticipantsIsChecked} />
+                    }
+                    label="Check to set a maximum number of participants"
+                    onChange={(event) => {
+                      const input = event.target.checked;
+                      setMaxNumberOfParticipantsIsChecked(input);
+                      if (!input) {
+                        setMaxNumberOfParticipants(null);
+                      }
+                    }}
+                  />
+                </FormGroup>
+                {maxNumberOfParticipantsIsChecked && (
+                  <TextField
+                    type="number"
+                    value={maxNumberOfParticipants}
+                    label="Max number of participants"
+                    variant="outlined"
+                    onChange={(event) => {
+                      const input = event.target.value;
+                      if (isNaN(parseInt(input))) {
+                        setMaxNumberOfParticipants(1);
+                      } else {
+                        setMaxNumberOfParticipants(parseInt(input));
+                      }
+                    }}
+                    sx={{ width: 1 / 2, my: 2 }}
+                  />
+                )}
+              </Box>
+            )}
             <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
               <Typography variant="subtitle1" sx={{ fontSize: 18 }}>
                 Click the camera to upload an image
