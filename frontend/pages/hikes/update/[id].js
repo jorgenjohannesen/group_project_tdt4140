@@ -64,6 +64,12 @@ const UpdateHike = ({ hike }) => {
   const [maxNumberOfParticipants, setMaxNumberOfParticipants] = useState(
     hikeMaxNumberOfParticipants
   );
+  const [width, setWidth] = useState(0);
+  
+  useEffect(() => { // Get the correct windowwidth from the start
+    setWidth(window.innerWidth)
+  });
+
   const [
     maxNumberOfParticipantsIsChecked,
     setMaxNumberOfParticipantsIsChecked,
@@ -166,6 +172,12 @@ const UpdateHike = ({ hike }) => {
     }
   }, [statusCode]);
 
+  useEffect(() => {
+    const handleWindowResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleWindowResize);
+    return () => window.removeEventListener("resize", handleWindowResize);
+  });
+
   return (
     <Box
       sx={{
@@ -185,12 +197,15 @@ const UpdateHike = ({ hike }) => {
         )}
 
         <Box
-          sx={{
+          sx={ (width > 700) ? {
             display: "flex",
-            justifyContent: "space-evenly",
-            sm: { flexDirection: "column" },
+            flexDirection: "row",
+          } : {
+            display: "flex",
+            flexDirection: "column-reverse",
           }}
         >
+
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Typography variant="h4" sx={{ p: 1 }}>
               Update hike
@@ -355,12 +370,17 @@ const UpdateHike = ({ hike }) => {
           </Box>
 
           {downloadedPhoto.data && (
-            <Box sx={{ px: 4, width: "60%" }}>
+            <Box sx={ (width > 700) ? {
+              px: 4,
+              width: "60%"
+            } : { 
+              width: "100%",
+            }}>
               <Image
                 src={`${BACKEND_URL}${downloadedPhoto.data.attributes.url}`}
-                height={downloadedPhoto.data.attributes.height}
+                height={ (width > 700) ? downloadedPhoto.data.attributes.height : "250px"}
                 width={downloadedPhoto.data.attributes.width}
-                object-fit="cover"
+                objectFit="cover"
               />
             </Box>
           )}
