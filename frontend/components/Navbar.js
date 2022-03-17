@@ -148,15 +148,15 @@ const Navbar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
+                
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Link href={setting.href}>
-                      <Typography textAlign="center">
-                        {setting.label}
-                      </Typography>
-                    </Link>
+                  <MenuItem button component="a" href={setting.href} key={setting} onClick={handleCloseUserMenu}>
+                    {setting.label}
                   </MenuItem>
-                ))}
+                ))
+                }
+
+                
               </Menu>
             </Box>
           )}
