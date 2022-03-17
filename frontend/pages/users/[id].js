@@ -5,7 +5,7 @@ import { BACKEND_URL } from "../../utils/constants";
 import { useState, useEffect } from "react";
 import { getUserIdFromJwtOrUndefined } from "../../lib/jwt";
 import Box from "@mui/material/Box";
-import placeholder from "/placeholder.jpg";
+import defaultProfilePicture from "/defaultProfilePicture.jpg";
 import Image from "next/image";
 
 const User = ({ yourHikes, participatedHikes, owner, profilePictureURL }) => {
@@ -27,7 +27,7 @@ const User = ({ yourHikes, participatedHikes, owner, profilePictureURL }) => {
           <Container>
             <div style={{ borderRadius:"50%", overflow: 'hidden', width:350, height:350}}>
               <Image
-                src={profilePictureURL || placeholder}
+                src={profilePictureURL || defaultProfilePicture}
                 height={350}
                 width={350}
                 layout="intrinsic"
@@ -41,9 +41,10 @@ const User = ({ yourHikes, participatedHikes, owner, profilePictureURL }) => {
           </Container>
         </Grid>
       </Grid>
+
       <Grid container xs={6}>
         <Container>
-          {isCommercial && (
+          {isCommercial && description && (
             <Box>
               <Typography variant="h5">Who is {username}?</Typography>
               <Typography variant="subtitle1">{description}</Typography>
@@ -60,7 +61,7 @@ const User = ({ yourHikes, participatedHikes, owner, profilePictureURL }) => {
           </Grid>
           <HikeListUser hikes={yourHikes}></HikeListUser>
         </Grid>
-        {isCommercial ? <></> : 
+        {participatedHikes.length > 0 &&
         <Grid container item sm={12} md={6} direction="column" alignItems="center" justifyContent="flex-start">
           <Typography variant="h4">
             Hikes {ownerId == userId ? "I have" : `${username} has`}{" "}
@@ -94,7 +95,7 @@ export const getServerSideProps = async (context) => {
   const ownerResponse = await fetch(`${BACKEND_URL}/api/users/${id}`);
   const owner = await ownerResponse.json();
 
-  let profilePictureURL = `${BACKEND_URL}/uploads/27_bb3b0c988b.jpg`;
+  let profilePictureURL = null;
   if (owner.profilePictureFileName != null) {
     const profilePictureResponse = await fetch(`${BACKEND_URL}/api/upload/files/${owner.profilePictureFileName}`);
     const profilePicture = await profilePictureResponse.json();
