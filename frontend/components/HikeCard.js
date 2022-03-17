@@ -55,10 +55,10 @@ const HikeCard = ({ hike, columns }) => {
           object-fit="cover"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography data-cy="title" gutterBottom variant="h5" component="div">
             {title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography data-cy="description" variant="body2" color="text.secondary">
             {description}
           </Typography>
         </CardContent>

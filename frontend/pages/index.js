@@ -4,17 +4,45 @@ import HikeListIndex from "../components/HikeListIndex";
 import Box from "@mui/material/Box";
 import { useEffect, useState } from "react";
 import Alert from "@mui/material/Alert";
+import { Button, Card, TextField, Typography } from "@mui/material";
+import FilterCard from "../components/FilterCard";
 
 const Home = ({ hikes }) => {
   const [feedback, setFeedback] = useState(undefined);
   const [severity, setSeverity] = useState(undefined);
+  const [filteredHikes, setFilteredHikes] = useState(hikes);
 
   useEffect(() => {
-    if (hikes.length == 0) {
+    if (!filteredHikes || filteredHikes?.length == 0) {
       setSeverity("info");
       setFeedback("Oops! Doesn't look like there are any hikes to display.");
     }
   }, []);
+
+  const useFilter = (textFilter) => {
+    setSeverity(undefined);
+    setFeedback(undefined);
+
+    const newHikeList = hikes.filter((hike) => {
+      if (
+        hike.attributes.title
+          .toUpperCase()
+          .includes(textFilter.toUpperCase()) ||
+        hike.attributes.description
+          .toUpperCase()
+          .includes(textFilter.toUpperCase())
+      ) {
+        return hike;
+      }
+    });
+
+    setFilteredHikes(newHikeList);
+
+    if (newHikeList.length == 0) {
+      setSeverity("info");
+      setFeedback("Oops! Doesn't look like there are any hikes to display.");
+    }
+  };
 
   return (
     <Container sx={{ mb: 12 }}>
@@ -25,6 +53,7 @@ const Home = ({ hikes }) => {
         }}
       >
         <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <FilterCard useFilter={useFilter} />
           {feedback && (
             <Alert
               severity={severity}
@@ -34,7 +63,7 @@ const Home = ({ hikes }) => {
               {feedback}
             </Alert>
           )}
-          <HikeListIndex hikes={hikes} />
+          <HikeListIndex hikes={filteredHikes} />
         </Box>
       </Box>
     </Container>
