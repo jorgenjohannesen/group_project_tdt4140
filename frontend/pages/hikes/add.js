@@ -3,7 +3,15 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import AddIcon from "@mui/icons-material/Add";
-import { FormControl, FormLabel, FormControlLabel, RadioGroup, Radio } from "@mui/material";
+import {
+  FormGroup,
+  FormControl,
+  FormLabel,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
+  Checkbox,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { BACKEND_URL, STATUS } from "../../utils/constants";
 import axios from "axios";
@@ -23,11 +31,16 @@ const Add = ({ owner }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [statusCode, setStatusCode] = useState(-1);
-  const [difficulty, setDifficulty] = useState("")
+  const [difficulty, setDifficulty] = useState("");
   const [feedback, setFeedback] = useState(undefined);
   const [severity, setSeverity] = useState(undefined);
   const [photo, setPhoto] = useState(undefined);
   const [price, setPrice] = useState(0);
+  const [
+    maxNumberOfParticipantsIsChecked,
+    setMaxNumberOfParticipantsIsChecked,
+  ] = useState(false);
+  const [maxNumberOfParticipants, setMaxNumberOfParticipants] = useState(0);
 
   const handleSubmit = async () => {
     // Check that user input is not empty
@@ -42,6 +55,7 @@ const Add = ({ owner }) => {
         description: description,
         price: price,
         ownedBy: getUserIdFromJwtOrUndefined(),
+        maxNumberOfParticipants: maxNumberOfParticipants,
         difficulty: difficulty,
       },
     };
@@ -142,7 +156,9 @@ const Add = ({ owner }) => {
           sx={{ width: 1 / 2, my: 2 }}
         />
         <FormControl>
-          <FormLabel id="demo-controlled-radio-buttons-group">Difficulty</FormLabel>
+          <FormLabel id="demo-controlled-radio-buttons-group">
+            Difficulty
+          </FormLabel>
           <RadioGroup
             row
             difficulty={difficulty}
@@ -151,11 +167,44 @@ const Add = ({ owner }) => {
             }}
           >
             <FormControlLabel value="easy" control={<Radio />} label="Easy" />
-            <FormControlLabel value="medium" control={<Radio />} label="Medium" />
+            <FormControlLabel
+              value="medium"
+              control={<Radio />}
+              label="Medium"
+            />
             <FormControlLabel value="hard" control={<Radio />} label="Hard" />
             <FormControlLabel value="none" control={<Radio />} label="None" />
           </RadioGroup>
         </FormControl>
+
+        <FormGroup sx={{ margin: 1 }}>
+          <FormControlLabel
+            control={<Checkbox />}
+            label="Check to set a maximum number of participants"
+            onChange={(event) => {
+              const input = event.target.checked;
+              setMaxNumberOfParticipantsIsChecked(input);
+              setMaxNumberOfParticipants(null);
+            }}
+          />
+        </FormGroup>
+        {maxNumberOfParticipantsIsChecked && (
+          <TextField
+            type="number"
+            value={maxNumberOfParticipants}
+            label="Max number of participants"
+            variant="outlined"
+            onChange={(event) => {
+              const input = event.target.value;
+              if (isNaN(parseInt(input))) {
+                setMaxNumberOfParticipants(1);
+              } else {
+                setMaxNumberOfParticipants(parseInt(input));
+              }
+            }}
+            sx={{ width: 1 / 2, my: 2 }}
+          />
+        )}
 
         {owner.isCommercial && (
           <Box>

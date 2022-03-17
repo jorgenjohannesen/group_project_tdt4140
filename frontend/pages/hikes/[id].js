@@ -23,6 +23,7 @@ import capitalize from "../../utils/capitalize";
 import Link from "next/link";
 import router from "next/router";
 import placeholder from "/placeholder.jpg";
+import formatBasedOnParticipants from "../../utils/formatBasedOnParticipants";
 
 const Hike = ({ hike: hikeInput }) => {
   const [userId, setUserId] = useState(undefined);
@@ -48,8 +49,11 @@ const Hike = ({ hike: hikeInput }) => {
           id: ownerId,
         },
       },
+      maxNumberOfParticipants,
     },
   } = hike;
+
+  console.log(maxNumberOfParticipants);
 
   // Set userId when page loads
   useEffect(() => {
@@ -106,18 +110,26 @@ const Hike = ({ hike: hikeInput }) => {
         setStatusCode(response.status);
         setFeedback("Successfully deleted hike!");
 
-        // Wait for provided time, and then route user to the index page
         router.push("/");
       })
       .catch((error) => {
         const errorMessage = error.response.data.error.message;
-
         setStatusCode(error.response.status);
         setFeedback(`Oops! ${capitalize(errorMessage)}`);
       });
   };
 
   const handleSignUpForHike = async () => {
+    const reachedMaxNumberOfParticipants =
+      participants.length == maxNumberOfParticipants;
+
+    if (reachedMaxNumberOfParticipants) {
+      setStatusCode(STATUS.BAD_REQUEST);
+      setFeedback(
+        "The number of participants is already reached. You cannot sign up for this hike."
+      );
+      return;
+    }
     participantIds.push(userId);
 
     const payload = {
@@ -260,7 +272,7 @@ const Hike = ({ hike: hikeInput }) => {
             </Box>
 
             <Box sx={{ display: "flex", alignItems: "center", my: 1, mb: 0 }}>
-              {difficulty !== "none" && (
+              {difficulty !== "none" && difficulty && (
                 <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
                   Difficulty: {capitalize(difficulty)}
                 </Typography>
@@ -314,7 +326,12 @@ const Hike = ({ hike: hikeInput }) => {
                 <TableHead>
                   <TableRow>
                     <TableCell sx={{ fontWeight: "bold", fontSize: 20 }}>
-                      Participants
+                      Participants (
+                      {formatBasedOnParticipants(
+                        participants,
+                        maxNumberOfParticipants
+                      )}
+                      )
                     </TableCell>
                   </TableRow>
                 </TableHead>
