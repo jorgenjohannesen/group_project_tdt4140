@@ -372,9 +372,11 @@ const UpdateHike = ({ hike }) => {
           {downloadedPhoto.data && (
             <Box sx={ (width > 700) ? {
               px: 4,
-              width: "60%"
+              width: "60%",
+              marginBottom: "0"
             } : { 
               width: "100%",
+              marginBottom: "1em"
             }}>
               <Image
                 src={`${BACKEND_URL}${downloadedPhoto.data.attributes.url}`}
