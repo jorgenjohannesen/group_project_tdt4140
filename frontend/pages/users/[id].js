@@ -64,9 +64,9 @@ const User = ({ yourHikes, participatedHikes, owner, profilePictureURL }) => {
           </Container>
         </Grid>
       </Grid>
-      <Grid container xs={9} md={8}>
+      <Grid container sx={{ width: "85%" }}>
         {isCommercial && description && (
-          <Box>
+          <Box sx={{ px: 2 }}>
             <Typography variant="h5" sx={{ textAlign: "center", my: 2 }}>
               Who is {username}?
             </Typography>
