@@ -90,6 +90,9 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "profilePictureFileName": {
+      "type": "string"
     }
   }
 }
