@@ -53,8 +53,6 @@ const Hike = ({ hike: hikeInput }) => {
     },
   } = hike;
 
-  console.log(maxNumberOfParticipants);
-
   // Set userId when page loads
   useEffect(() => {
     const userId = getUserIdFromJwtOrUndefined();
@@ -340,14 +338,14 @@ const Hike = ({ hike: hikeInput }) => {
                     <TableCell>
                       {participants && (
                         <Box>
-                          {participants.map((participant) => {
+                          {participants.map((participant, index) => {
                             const {
                               id: userId,
                               attributes: { username },
                             } = participant;
 
                             return (
-                              <Link href={`/users/${userId}`}>
+                              <Link href={`/users/${userId}`} key={index}>
                                 <Typography
                                   variant="subtitle1"
                                   sx={{
