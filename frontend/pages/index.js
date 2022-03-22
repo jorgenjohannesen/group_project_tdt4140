@@ -19,7 +19,7 @@ const Home = ({ hikes }) => {
     }
   }, []);
 
-  const useFilter = (textFilter) => {
+  const useFilter = (textFilter, checkboxFilter) => {
     setSeverity(undefined);
     setFeedback(undefined);
 
@@ -30,8 +30,10 @@ const Home = ({ hikes }) => {
           .includes(textFilter.toUpperCase()) ||
         hike.attributes.description
           .toUpperCase()
-          .includes(textFilter.toUpperCase())
-      ) {
+          .includes(textFilter.toUpperCase()) 
+      ) 
+      if (hike.attributes.difficulty === checkboxFilter)
+      {
         return hike;
       }
     });
@@ -43,6 +45,7 @@ const Home = ({ hikes }) => {
       setFeedback("Oops! Doesn't look like there are any hikes to display.");
     }
   };
+  
 
   return (
     <Container sx={{ mb: 12 }}>
