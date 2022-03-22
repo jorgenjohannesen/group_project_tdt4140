@@ -24,6 +24,7 @@ import Link from "next/link";
 import router from "next/router";
 import placeholder from "/placeholder.jpg";
 import formatBasedOnParticipants from "../../utils/formatBasedOnParticipants";
+import parseDate from "../../utils/parseDate";
 import Grid from "@mui/material/Grid"
 
 const Hike = ({ hike: hikeInput }) => {
@@ -42,6 +43,7 @@ const Hike = ({ hike: hikeInput }) => {
       description,
       photo,
       price,
+      date,
       difficulty,
       participants: { data: participants },
       ownedBy: {
@@ -53,6 +55,7 @@ const Hike = ({ hike: hikeInput }) => {
       maxNumberOfParticipants,
     },
   } = hike;
+  console.log(hike)
 
   // Set userId when page loads
   useEffect(() => {
@@ -236,6 +239,13 @@ const Hike = ({ hike: hikeInput }) => {
           )}
         </Grid>
         <Grid item xs={12} sx={{ margin: "0 auto" }}>
+          {date && (
+            <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
+              Date: {parseDate(date)}
+            </Typography>
+          )}
+        </Grid>
+        <Grid item xs={12} sx={{ margin: "0 auto" }}>
           {difficulty !== "none" && difficulty && (
             <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
               Difficulty: {capitalize(difficulty)}
@@ -257,7 +267,7 @@ const Hike = ({ hike: hikeInput }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          {userId && (
+          {userId && date && (new Date(date) < new Date()) && (
             <Button
               onClick={
                 userIsParticipating
@@ -355,7 +365,7 @@ const Hike = ({ hike: hikeInput }) => {
           )}
         </Grid>
       </Grid>
-    </Box>
+    </Box >
   );
 };
 
