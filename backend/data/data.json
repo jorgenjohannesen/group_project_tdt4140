@@ -324,7 +324,8 @@
             "provider": "local",
             "role": 1,
             "description": "Possessive, Amusing, Communicative and People-oriented.",
-            "profilePicture" : 26
+            "profilePicture" : 26,
+            "profilePictureFileName" : "26"
         },
         {
             "confirmed": true,
@@ -335,7 +336,8 @@
             "provider": "local",
             "role": 1,
             "description": "Reassuring, Diplomatic, Average mannered and Modest.",
-            "profilePicture" : 27
+            "profilePicture" : 27,
+            "profilePictureFileName" : "27"
         },
         {
             "confirmed": true,
@@ -346,7 +348,8 @@
             "provider": "local",
             "role": 1,
             "description": "Quick to judge, Vulgar and Ambitious.",
-            "profilePicture" : 28
+            "profilePicture" : 28,
+            "profilePictureFileName" : "28"
         },
         {
             "confirmed": true,
@@ -357,7 +360,8 @@
             "provider": "local",
             "role": 1,
             "description": "Impulsive, Abstract and Truthful.",
-            "profilePicture" : 29
+            "profilePicture" : 29,
+            "profilePictureFileName" : "29"
         },
         {
             "confirmed": true,
@@ -368,7 +372,8 @@
             "provider": "local",
             "role": 1,
             "description": "A lone worker, Faithful, Emotionally aware, Cannot tolerate conflict and Spontaneous.",
-            "profilePicture" : 30
+            "profilePicture" : 30,
+            "profilePictureFileName" : "30"
         },
         {
             "confirmed": true,
@@ -379,7 +384,8 @@
             "provider": "local",
             "role": 1,
             "description": "Compulsive and Stressed.",
-            "profilePicture" : 31
+            "profilePicture" : 31,
+            "profilePictureFileName" : "31"
         },
         {
             "confirmed": true,
@@ -390,7 +396,8 @@
             "provider": "local",
             "role": 1,
             "description": "Athletic, Quick to judge, A leader (when necessary) and Considerate.",
-            "profilePicture" : 32
+            "profilePicture" : 32,
+            "profilePictureFileName" : "32"
         },
         {
             "confirmed": true,
@@ -401,7 +408,8 @@
             "provider": "local",
             "role": 1,
             "description": "Sincere, Neither selfish nor selfless and Brash.",
-            "profilePicture" : 33
+            "profilePicture" : 33,
+            "profilePictureFileName" : "33"
         },
         {
             "confirmed": true,
@@ -412,7 +420,8 @@
             "provider": "local",
             "role": 1,
             "description": "Fast-paced, Quick to judge, Cowardly and Compliant.",
-            "profilePicture" : 34
+            "profilePicture" : 34,
+            "profilePictureFileName" : "34"
         },
         {
             "confirmed": true,
@@ -423,7 +432,8 @@
             "provider": "local",
             "role": 1,
             "description": "Reckless, Highly rebellious, Non-judgmental and Dutiful.",
-            "profilePicture" : 35
+            "profilePicture" : 35,
+            "profilePictureFileName" : "35"
         },       
         {
             "confirmed": true,
@@ -435,7 +445,8 @@
             "role": 1,
             "description": "A week filled with experiences or a week without any plans. It is safe to travel with TUI - we take care of you before, during and after your holiday. Best selection of trips.",
             "profilePicture" : 36,
-            "isCommercial": true
+            "isCommercial": true,
+            "profilePictureFileName" : "36"
         }, 
         {
             "confirmed": true,
@@ -447,7 +458,8 @@
             "role": 1,
             "description": "Ving is Norway's largest tour operator with trips to more than 350 destinations in over 60 countries. We want to give you the best weeks of the year when you travel with us.",
             "profilePicture" : 37,
-            "isCommercial": true
+            "isCommercial": true,
+            "profilePictureFileName" : "37"
         },       
         {
             "confirmed": true,
@@ -459,7 +471,8 @@
             "role": 1,
             "description": "The Norwegian Tourist Association (DNT) is Norway's largest outdoor organization. The association was founded on 21 January 1868 on the initiative of Consul Thomas Johannessen Heftye and Captain Hans Hagerup Krag. In the beginning, the association was led by the aforementioned Heftye (chairman) and Krag, as well as Colonel Fredrik Næser, Professor Halvor Rasch, and assessor W. Erichsen.",
             "profilePicture" : 38,
-            "isCommercial": true
+            "isCommercial": true,
+            "profilePictureFileName" : "38"
         }
     ]
 }

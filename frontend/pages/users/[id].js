@@ -5,8 +5,10 @@ import { BACKEND_URL } from "../../utils/constants";
 import { useState, useEffect } from "react";
 import { getUserIdFromJwtOrUndefined } from "../../lib/jwt";
 import Box from "@mui/material/Box";
+import defaultProfilePicture from "/defaultProfilePicture.jpg";
+import Image from "next/image";
 
-const User = ({ yourHikes, participatedHikes, owner }) => {
+const User = ({ yourHikes, participatedHikes, owner, profilePictureURL }) => {
   const [userId, setUserId] = useState(undefined);
 
   useEffect(() => {
@@ -19,29 +21,102 @@ const User = ({ yourHikes, participatedHikes, owner }) => {
   const { id: ownerId, username, email, isCommercial, description } = owner;
 
   return (
-    <Container maxWidth="xl">
-      <Grid container spacing={2}>
-        {isCommercial && (
-          <Box>
-            <Typography variant="h5">Who is {username}?</Typography>
+    <Grid
+      container
+      spacing={8}
+      justifyContent="flex-start"
+      alignItems="center"
+      direction="column"
+    >
+      <Grid container item xs={5} alignItems="center" direction="column">
+        <Grid item container xs={5}>
+          <Container
+            sx={{
+              width: "25%",
+            }}
+          >
+            <Box
+              sx={{
+                borderRadius: "50%",
+                overflow: "hidden",
+                borderStyle: "solid",
+                borderColor: "black",
+                borderWidth: "2px",
+              }}
+            >
+              <Image
+                src={profilePictureURL || defaultProfilePicture}
+                height={100}
+                width={100}
+                layout="responsive"
+              />
+            </Box>
+          </Container>
+        </Grid>
+        <Grid item xs={4}>
+          <Container>
+            <Typography
+              variant="h4"
+              sx={{ textAlign: "center", my: 2, fontWeight: "bold" }}
+            >
+              {username}
+            </Typography>
+          </Container>
+        </Grid>
+      </Grid>
+      <Grid container sx={{ width: "85%" }}>
+        {isCommercial && description && (
+          <Box sx={{ px: 2 }}>
+            <Typography variant="h5" sx={{ textAlign: "center", my: 2 }}>
+              Who is {username}?
+            </Typography>
             <Typography variant="subtitle1">{description}</Typography>
           </Box>
         )}
-        <Grid container item xs={12} md={6}>
-          <Typography variant="h4">
-            {ownerId == userId ? "Your " : `${username}'s`} hikes
-          </Typography>
+      </Grid>
+      <Grid
+        container
+        item
+        xs={12}
+        rowSpacing={5}
+        justifyContent="center"
+        alignItems="flex-start"
+      >
+        <Grid
+          container
+          item
+          sm={12}
+          md={6}
+          direction="column"
+          alignItems="center"
+          justifyContent="flex-start"
+        >
+          <Grid item>
+            <Typography variant="h4" sx={{ fontSize: "4vmin" }}>
+              {ownerId == userId ? "My " : `${username}'s`} hikes
+            </Typography>
+          </Grid>
           <HikeListUser hikes={yourHikes}></HikeListUser>
         </Grid>
-        <Grid container item xs={12} md={6}>
-          <Typography variant="h4">
-            Hikes {ownerId == userId ? "you've" : `${username} has`}{" "}
-            participated in
-          </Typography>
-          <HikeListUser hikes={participatedHikes}></HikeListUser>
-        </Grid>
+        {participatedHikes.length > 0 && (
+          <Grid
+            container
+            item
+            sm={12}
+            md={6}
+            direction="column"
+            alignItems="center"
+            justifyContent="flex-start"
+          >
+            <Typography variant="h4" sx={{ fontSize: "4vmin" }}>
+              Hikes {ownerId == userId ? "I have" : `${username} has`}{" "}
+              participated in
+            </Typography>
+            <HikeListUser hikes={participatedHikes}></HikeListUser>
+          </Grid>
+        )}
       </Grid>
-    </Container>
+    </Grid>
   );
 };
 
@@ -67,7 +142,18 @@ export const getServerSideProps = async (context) => {
   const ownerResponse = await fetch(`${BACKEND_URL}/api/users/${id}`);
   const owner = await ownerResponse.json();
 
-  return { props: { yourHikes, participatedHikes, owner } };
+  let profilePictureURL = null;
+  if (owner.profilePictureFileName != null) {
+    const profilePictureResponse = await fetch(
+      `${BACKEND_URL}/api/upload/files/${owner.profilePictureFileName}`
+    );
+    const profilePicture = await profilePictureResponse.json();
+    if (profilePicture.url != null) {
+      profilePictureURL = `${BACKEND_URL}${profilePicture?.url}`;
+    }
+  }
+
+  return { props: { yourHikes, participatedHikes, owner, profilePictureURL } };
 };
 
 export default User;

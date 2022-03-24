@@ -142,7 +142,9 @@ const Register = () => {
         <FormControlLabel
           labelPlacement="start"
           sx={{ mr: 1 }}
-          control={<Checkbox defaultUnchecked data-cy="checkbox-commercial" />}
+          control={
+            <Checkbox defaultunchecked="true" data-cy="checkbox-commercial" />
+          }
           label="Are you a commercial user?"
           onChange={(event) => {
             const isChecked = event.target.checked;

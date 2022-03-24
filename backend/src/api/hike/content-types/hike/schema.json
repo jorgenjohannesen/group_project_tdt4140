@@ -52,7 +52,7 @@
       "default": 0
     },
     "date": {
-      "type": "datetime",
+      "type": "date",
       "required": false
     },
     "difficulty": {

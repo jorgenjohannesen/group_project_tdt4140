@@ -4,11 +4,9 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import Link from "next/link";
 import AddIcon from "@mui/icons-material/Add";
@@ -16,11 +14,15 @@ import { useEffect, useState } from "react";
 import { getUserIdFromJwtOrUndefined } from "../lib/jwt";
 import LoginIcon from "@mui/icons-material/Login";
 import { useRouter } from "next/router";
+import axios from "axios";
+import { BACKEND_URL } from "../utils/constants";
+import firstLetter from "../utils/firstLetter";
 
 const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [userIsLoggedIn, setUserIsLogggedIn] = useState(false);
   const [userId, setUserId] = useState(undefined);
+  const [user, setUser] = useState(undefined);
 
   const settings = [
     { label: "Your profile", href: `/users/${userId}` },
@@ -29,12 +31,28 @@ const Navbar = () => {
 
   const router = useRouter();
   // Set userId when page loads
-  useEffect(() => {
+  useEffect(async () => {
     const userId = getUserIdFromJwtOrUndefined();
     setUserId(userId);
 
     if (userId) {
       setUserIsLogggedIn(true);
+
+      const getUser = async () => {
+        await axios
+          .get(`${BACKEND_URL}/api/users/${userId}`)
+          .then((response) => {
+            setUser(response.data);
+          })
+          .catch((error) => {
+            const errorMessage = error.response.data.error;
+
+            console.log(errorMessage);
+          });
+      };
+
+      getUser();
+
       return;
     }
 
@@ -125,11 +143,25 @@ const Navbar = () => {
             )}
           </Box>
 
-          {userId && (
+          {userId && user && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Box
+                    sx={{
+                      backgroundColor: "lightgray",
+                      borderRadius: "50%",
+                      overflow: "hidden",
+                      borderStyle: "solid",
+                      borderWidth: "1px",
+                      py: 1,
+                      px: 2,
+                    }}
+                  >
+                    <Typography variant="h6">
+                      {firstLetter(user.username).toUpperCase()}
+                    </Typography>
+                  </Box>
                 </IconButton>
               </Tooltip>
               <Menu
@@ -149,12 +181,14 @@ const Navbar = () => {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Link href={setting.href}>
-                      <Typography textAlign="center">
-                        {setting.label}
-                      </Typography>
-                    </Link>
+                  <MenuItem
+                    button
+                    component="a"
+                    href={setting.href}
+                    key={setting}
+                    onClick={handleCloseUserMenu}
+                  >
+                    {setting.label}
                   </MenuItem>
                 ))}
               </Menu>
