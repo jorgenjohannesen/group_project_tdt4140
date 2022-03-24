@@ -24,6 +24,7 @@ import Link from "next/link";
 import router from "next/router";
 import placeholder from "/placeholder.jpg";
 import formatBasedOnParticipants from "../../utils/formatBasedOnParticipants";
+import EditIcon from "@mui/icons-material/Edit";
 
 const Hike = ({ hike: hikeInput }) => {
   const [userId, setUserId] = useState(undefined);
@@ -369,6 +370,20 @@ const Hike = ({ hike: hikeInput }) => {
                 </TableBody>
               </Table>
             </TableContainer>
+
+            {userId && hike.attributes.ownedBy.data.id === userId && (
+              <Link href={`/hikes/update/${hikeId}`}>
+                <Button
+                  sx={{
+                    width: 1 / 2,
+                  }}
+                  variant="contained"
+                  startIcon={<EditIcon />}
+                >
+                  Update hike
+                </Button>
+              </Link>
+            )}
 
             {userId && hike.attributes.ownedBy.data.id !== userId && (
               <Button
