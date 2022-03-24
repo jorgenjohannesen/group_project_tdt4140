@@ -12,6 +12,10 @@ import {
   Radio,
   Checkbox,
 } from "@mui/material";
+import DatePicker from "@mui/lab/DatePicker";
+import DateAdapter from "@mui/lab/AdapterDateFns";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { useEffect, useState } from "react";
 import { BACKEND_URL, STATUS } from "../../utils/constants";
 import axios from "axios";
@@ -41,6 +45,7 @@ const Add = ({ owner }) => {
     setMaxNumberOfParticipantsIsChecked,
   ] = useState(false);
   const [maxNumberOfParticipants, setMaxNumberOfParticipants] = useState(0);
+  const [date, setDate] = useState(null);
 
   const handleSubmit = async () => {
     // Check that user input is not empty
@@ -54,6 +59,7 @@ const Add = ({ owner }) => {
         title: title,
         description: description,
         price: price,
+        date: date,
         ownedBy: getUserIdFromJwtOrUndefined(),
         maxNumberOfParticipants: maxNumberOfParticipants,
         difficulty: difficulty,
@@ -140,7 +146,7 @@ const Add = ({ owner }) => {
             const input = event.target.value;
             setTitle(input);
           }}
-          sx={{ width: 1 / 4, my: 2 }}
+          sx={{ my: 2 }}
         />
 
         <TextField
@@ -153,7 +159,7 @@ const Add = ({ owner }) => {
             const input = event.target.value;
             setDescription(input);
           }}
-          sx={{ width: 1 / 2, my: 2 }}
+          sx={{ my: 2 }}
         />
         <FormControl>
           <FormLabel id="demo-controlled-radio-buttons-group">
@@ -221,6 +227,19 @@ const Add = ({ owner }) => {
           </Box>
         )}
 
+        <Box>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              renderInput={(props) => <TextField {...props} />}
+              label="Enter date"
+              value={date}
+              onChange={(newValue) => {
+                setDate(newValue);
+              }}
+            />
+          </LocalizationProvider>
+        </Box>
+
         <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
           <Typography variant="subtitle1" sx={{ fontSize: 18 }}>
             Click the camera to upload an image
@@ -250,7 +269,7 @@ const Add = ({ owner }) => {
 
         <Button
           onClick={handleSubmit}
-          sx={{ width: 1 / 6 }}
+          sx={{ my: 2 }}
           variant="contained"
           startIcon={<AddIcon />}
         >
