@@ -19,20 +19,32 @@ const Home = ({ hikes }) => {
     }
   }, []);
 
-  const useFilter = (textFilter) => {
+  const useFilter = (textFilter, checkboxFilter) => {
     setSeverity(undefined);
     setFeedback(undefined);
 
     const newHikeList = hikes.filter((hike) => {
-      if (
+      // Validate text filter
+      const fulfilledTextFilter =
         hike.attributes.title
           .toUpperCase()
           .includes(textFilter.toUpperCase()) ||
         hike.attributes.description
           .toUpperCase()
-          .includes(textFilter.toUpperCase())
-      ) {
-        return hike;
+          .includes(textFilter.toUpperCase());
+
+      // Validate difficulty filter
+      const fulfilledDifficultyFilter =
+        hike.attributes.difficulty === checkboxFilter;
+
+      if (!checkboxFilter || checkboxFilter === "none") {
+        if (fulfilledTextFilter) {
+          return hike;
+        }
+      } else {
+        if (fulfilledTextFilter && fulfilledDifficultyFilter) {
+          return hike;
+        }
       }
     });
 
