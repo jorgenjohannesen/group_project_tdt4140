@@ -267,7 +267,7 @@ const Hike = ({ hike: hikeInput }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          {userId && date && (new Date(date) < new Date()) && (
+          {userId && (new Date(date) < new Date()) && (
             <Button
               onClick={
                 userIsParticipating

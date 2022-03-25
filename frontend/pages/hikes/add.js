@@ -161,7 +161,7 @@ const Add = ({ owner }) => {
           }}
           sx={{ my: 2 }}
         />
-        <FormControl>
+        <FormControl required>
           <FormLabel id="demo-controlled-radio-buttons-group">
             Difficulty
           </FormLabel>

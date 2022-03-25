@@ -67,8 +67,7 @@
       "default": "none"
     },
     "maxNumberOfParticipants": {
-      "type": "integer",
-      "min": 1
+      "type": "integer"
     },
     "maxNumberOfParticipantsIsChecked": {
       "type": "boolean"
