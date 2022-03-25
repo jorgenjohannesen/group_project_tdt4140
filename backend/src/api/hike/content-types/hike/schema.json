@@ -53,7 +53,7 @@
     },
     "date": {
       "type": "date",
-      "required": false
+      "required": true
     },
     "difficulty": {
       "type": "enumeration",

@@ -267,7 +267,7 @@ const Hike = ({ hike: hikeInput }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          {userId && (new Date(date) < new Date()) && (
+          {userId && date && (new Date(date) > new Date()) && (
             <Button
               onClick={
                 userIsParticipating
@@ -364,6 +364,25 @@ const Hike = ({ hike: hikeInput }) => {
             </Box>
           )}
         </Grid>
+        <Grid item xs={12}>
+          {userId && hike.attributes.ownedBy.data.id !== userId && (
+            <Button
+              onClick={handleReport}
+              sx={{
+                width: 1,
+                backgroundColor: grey[300],
+                color: "black",
+                "&:hover": {
+                  backgroundColor: grey[200],
+                },
+              }}
+              variant="contained"
+              startIcon={<ReportIcon />}
+            >
+              Report
+            </Button>
+          )}
+        </Grid>
       </Grid>
     </Box >
   );
@@ -386,184 +405,3 @@ export const getServerSideProps = async (context) => {
 };
 
 export default Hike;
-
-        // <Box
-        //   sx={{
-        //     display: "flex",
-        //     justifyContent: "space-evenly",
-        //     sm: { flexDirection: "column" },
-        //   }}
-        // >
-        //   <Box sx={{ display: "flex", flexDirection: "column" }}>
-        //     {title && (
-        //       <Typography variant="h4" sx={{ p: 1 }}>
-        //         {title}
-        //       </Typography>
-        //     )}
-
-        //     <Box sx={{ display: "flex", flexDirection: "row", p: 1 }}>
-        //       {username && (
-        //         <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
-        //           Posted by:{" "}
-        //           <Link href={`/users/${ownerId}`}>
-        //             <Typography
-        //               variant="subtitle1"
-        //               sx={{
-        //                 "&:hover": { color: "lightblue", cursor: "pointer" },
-        //               }}
-        //             >
-        //               {username}
-        //             </Typography>
-        //           </Link>
-        //         </Typography>
-        //       )}
-
-        //       {userId && (
-        //         <Button
-        //           onClick={
-        //             userIsParticipating
-        //               ? handleSignOffForHike
-        //               : handleSignUpForHike
-        //           }
-        //           sx={{
-        //             width: 1,
-        //             p: 1,
-        //             backgroundColor: userIsParticipating
-        //               ? red[300]
-        //               : green[300],
-        //             color: "black",
-        //             "&:hover": {
-        //               backgroundColor: userIsParticipating
-        //                 ? red[200]
-        //                 : green[200],
-        //               my: 2,
-        //             },
-        //           }}
-        //           variant="contained"
-        //           startIcon={userIsParticipating ? <ClearIcon /> : <AddIcon />}
-        //         >
-        //           {userIsParticipating
-        //             ? "Sign off for hike"
-        //             : "Sign up for hike"}
-        //         </Button>
-        //       )}
-        //     </Box>
-
-        //     <Box sx={{ display: "flex", alignItems: "center", my: 1, mb: 0 }}>
-        //       {difficulty !== "none" && difficulty && (
-        //         <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
-        //           Difficulty: {capitalize(difficulty)}
-        //         </Typography>
-        //       )}
-        //     </Box>
-
-        //     <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
-        //       {description && (
-        //         <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
-        //           {description}
-        //         </Typography>
-        //       )}
-        //     </Box>
-
-        //     <Box>
-        //       {iscommercial && (
-        //         <box sx={{ display: "flex", alignitems: "center", my: 2 }}>
-        //           <typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
-        //             price: {price}kr
-        //           </typography>
-        //         </Box>
-        //       )}
-        //     </Box>
-        //   </Box>
-
-        //   <Box
-        //     sx={{
-        //       display: "flex",
-        //       flexDirection: "column",
-        //       width: "60%",
-        //     }}
-        //   >
-        //     <Box sx={{ width: "80%", my: 2 }}>
-        //       <Image
-        //         src={photoUrl}
-        //         height={photoHeight}
-        //         width={photoWidth}
-        //         object-fit="cover"
-        //       />
-        //     </Box>
-        //     <TableContainer
-        //       component={Paper}
-        //       sx={{
-        //         width: "60%",
-        //         display: "flex",
-        //         flexDirection: "column",
-        //         my: 2,
-        //       }}
-        //     >
-        //       <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        //         <TableHead>
-        //           <TableRow>
-        //             <TableCell sx={{ fontWeight: "bold", fontSize: 20 }}>
-        //               Participants (
-        //               {formatBasedOnParticipants(
-        //                 participants,
-        //                 maxNumberOfParticipants
-        //               )}
-        //               )
-        //             </TableCell>
-        //           </TableRow>
-        //         </TableHead>
-        //         <TableBody>
-        //           <TableRow>
-        //             <TableCell>
-        //               {participants && (
-        //                 <Box>
-        //                   {participants.map((participant, index) => {
-        //                     const {
-        //                       id: userId,
-        //                       attributes: { username },
-        //                     } = participant;
-
-        //                     return (
-        //                       <Link href={`/users/${userId}`} key={index}>
-        //                         <Typography
-        //                           variant="subtitle1"
-        //                           sx={{
-        //                             "&:hover": {
-        //                               color: "lightblue",
-        //                               cursor: "pointer",
-        //                             },
-        //                           }}
-        //                         >
-        //                           {username}
-        //                         </Typography>
-        //                       </Link>
-        //                     );
-        //                   })}
-        //                 </Box>
-        //               )}
-        //             </TableCell>
-        //           </TableRow>
-        //         </TableBody>
-        //       </Table>
-        //     </TableContainer>
-
-        //     {userId && hike.attributes.ownedBy.data.id !== userId && (
-        //       <Button
-        //         onClick={handleReport}
-        //         sx={{
-        //           width: 1 / 4,
-        //           backgroundColor: grey[300],
-        //           color: "black",
-        //           "&:hover": {
-        //             backgroundColor: grey[200],
-        //           },
-        //         }}
-        //         variant="contained"
-        //         startIcon={<ReportIcon />}
-        //       >
-        //         Report
-        //       </Button>
-        //     )}
-        //   </Box>
-        // </Box>
