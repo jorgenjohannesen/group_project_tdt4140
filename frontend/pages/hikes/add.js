@@ -231,7 +231,7 @@ const Add = ({ owner }) => {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               renderInput={(props) => <TextField {...props} />}
-              label="Enter date"
+              label="Enter date *"
               value={date}
               onChange={(newValue) => {
                 setDate(newValue);

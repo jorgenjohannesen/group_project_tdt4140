@@ -23,8 +23,8 @@ const parseDate = (input) => {
   const date = parsed.getDate();
   const month = months[parsed.getMonth()];
   const year = parsed.getFullYear();
-
-  return `${months.at(month - 1)} ${date}, ${year}`;
+  console.log(months[0])
+  return `${month} ${date}, ${year}`;
 };
 
 export default parseDate;
