@@ -44,7 +44,7 @@ const Add = ({ owner }) => {
     maxNumberOfParticipantsIsChecked,
     setMaxNumberOfParticipantsIsChecked,
   ] = useState(false);
-  const [maxNumberOfParticipants, setMaxNumberOfParticipants] = useState(0);
+  const [maxNumberOfParticipants, setMaxNumberOfParticipants] = useState(undefined);
   const [date, setDate] = useState(null);
 
   const handleSubmit = async () => {

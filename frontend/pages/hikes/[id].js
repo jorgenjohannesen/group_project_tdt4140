@@ -405,25 +405,3 @@ export const getServerSideProps = async (context) => {
 };
 
 export default Hike;
-
-
-
-        //     {userId && hike.attributes.ownedBy.data.id !== userId && (
-        //       <Button
-        //         onClick={handleReport}
-        //         sx={{
-        //           width: 1 / 4,
-        //           backgroundColor: grey[300],
-        //           color: "black",
-        //           "&:hover": {
-        //             backgroundColor: grey[200],
-        //           },
-        //         }}
-        //         variant="contained"
-        //         startIcon={<ReportIcon />}
-        //       >
-        //         Report
-        //       </Button>
-        //     )}
-        //   </Box>
-        // </Box>
