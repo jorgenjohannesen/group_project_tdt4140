@@ -26,6 +26,10 @@ import {
   Radio,
   Checkbox,
 } from "@mui/material";
+import DatePicker from "@mui/lab/DatePicker";
+import DateAdapter from "@mui/lab/AdapterDateFns";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
 
 const Input = styled("input")({
   display: "none",
@@ -40,6 +44,7 @@ const UpdateHike = ({ hike }) => {
       photo: hikePhoto,
       difficulty: hikeDifficulty,
       price: hikePrice,
+      date: hikeDate,
       maxNumberOfParticipants: hikeMaxNumberOfParticipants,
       maxNumberOfParticipantsIsChecked: hikeMaxNumberOfParticipantsIsChecked,
       ownedBy: {
@@ -64,6 +69,13 @@ const UpdateHike = ({ hike }) => {
   const [maxNumberOfParticipants, setMaxNumberOfParticipants] = useState(
     hikeMaxNumberOfParticipants
   );
+  const [width, setWidth] = useState(0);
+  const [date, setDate] = useState(hikeDate);
+  
+  useEffect(() => { // Get the correct windowwidth from the start
+    setWidth(window.innerWidth)
+  });
+
   const [
     maxNumberOfParticipantsIsChecked,
     setMaxNumberOfParticipantsIsChecked,
@@ -99,6 +111,7 @@ const UpdateHike = ({ hike }) => {
         description: description,
         maxNumberOfParticipants: maxNumberOfParticipants,
         maxNumberOfParticipantsIsChecked: maxNumberOfParticipantsIsChecked,
+        date: date,
         difficulty: difficulty,
       },
     };
@@ -166,6 +179,12 @@ const UpdateHike = ({ hike }) => {
     }
   }, [statusCode]);
 
+  useEffect(() => {
+    const handleWindowResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleWindowResize);
+    return () => window.removeEventListener("resize", handleWindowResize);
+  });
+
   return (
     <Box
       sx={{
@@ -185,12 +204,15 @@ const UpdateHike = ({ hike }) => {
         )}
 
         <Box
-          sx={{
+          sx={ (width > 700) ? {
             display: "flex",
-            justifyContent: "space-evenly",
-            sm: { flexDirection: "column" },
+            flexDirection: "row",
+          } : {
+            display: "flex",
+            flexDirection: "column-reverse",
           }}
         >
+
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Typography variant="h4" sx={{ p: 1 }}>
               Update hike
@@ -307,6 +329,20 @@ const UpdateHike = ({ hike }) => {
                 )}
               </Box>
             )}
+
+            <Box>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  renderInput={(props) => <TextField {...props} />}
+                  label="Enter date"
+                  value={date}
+                  onChange={(newValue) => {
+                    setDate(newValue);
+                  }}
+                />
+              </LocalizationProvider>
+            </Box>
+
             <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
               <Typography variant="subtitle1" sx={{ fontSize: 18 }}>
                 Click the camera to upload an image
@@ -355,12 +391,19 @@ const UpdateHike = ({ hike }) => {
           </Box>
 
           {downloadedPhoto.data && (
-            <Box sx={{ px: 4, width: "60%" }}>
+            <Box sx={ (width > 700) ? {
+              px: 4,
+              width: "60%",
+              marginBottom: "0"
+            } : { 
+              width: "100%",
+              marginBottom: "1em"
+            }}>
               <Image
                 src={`${BACKEND_URL}${downloadedPhoto.data.attributes.url}`}
-                height={downloadedPhoto.data.attributes.height}
+                height={ (width > 700) ? downloadedPhoto.data.attributes.height : "250px"}
                 width={downloadedPhoto.data.attributes.width}
-                object-fit="cover"
+                objectFit="cover"
               />
             </Box>
           )}
