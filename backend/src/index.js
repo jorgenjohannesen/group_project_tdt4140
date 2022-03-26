@@ -6,16 +6,22 @@ module.exports = {
    2. Start strapi
    3. Create your a admin user and log in.
    4. In strapi dashboard go to media libary and add all the photos from the photo folder shared in discord.
-   5. Go back to code and find supercoolboolean. This is located at backend\src\index.js. Switch supercoolboolean to true and start strapi, then switch it to false and start strapi again.
+   5. Go back to code and find shouldPopulateDatabase. This is located at backend\src\index.js. Switch shouldPopulateDatabase to true and start strapi, then switch it to false and start strapi again.
    6. Strapi should now be filled with entries.
    7. You will need to set the premissions for the public role again because we deleted our database file. 
   */
 
+  
+
+
+  
   bootstrap({ strapi }) {
     const shouldPopulateDatabase = false;
 
     if (shouldPopulateDatabase) {
       const fs = require("fs");
+
+  
 
       try {
         const jsonString = fs.readFileSync("./data/data.json");

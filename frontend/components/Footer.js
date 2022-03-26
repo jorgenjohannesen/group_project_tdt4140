@@ -1,19 +1,21 @@
 import BottomNavigation from "@mui/material/BottomNavigation";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 const Footer = () => {
   return (
-    <BottomNavigation
+    <Box
       sx={{
         py: 2,
-        position: "fixed",
         bottom: 0,
         width: "100%",
-        mx: "auto",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
       <Typography>Developed by Group 69</Typography>
-    </BottomNavigation>
+    </Box>
   );
 };
 

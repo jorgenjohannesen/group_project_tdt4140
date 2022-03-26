@@ -3,6 +3,19 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import AddIcon from "@mui/icons-material/Add";
+import {
+  FormGroup,
+  FormControl,
+  FormLabel,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
+  Checkbox,
+} from "@mui/material";
+import DatePicker from "@mui/lab/DatePicker";
+import DateAdapter from "@mui/lab/AdapterDateFns";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { useEffect, useState } from "react";
 import { BACKEND_URL, STATUS } from "../../utils/constants";
 import axios from "axios";
@@ -18,13 +31,21 @@ const Input = styled("input")({
   display: "none",
 });
 
-const Add = () => {
+const Add = ({ owner }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [statusCode, setStatusCode] = useState(-1);
+  const [difficulty, setDifficulty] = useState("");
   const [feedback, setFeedback] = useState(undefined);
   const [severity, setSeverity] = useState(undefined);
   const [photo, setPhoto] = useState(undefined);
+  const [price, setPrice] = useState(0);
+  const [
+    maxNumberOfParticipantsIsChecked,
+    setMaxNumberOfParticipantsIsChecked,
+  ] = useState(false);
+  const [maxNumberOfParticipants, setMaxNumberOfParticipants] = useState(undefined);
+  const [date, setDate] = useState(null);
 
   const handleSubmit = async () => {
     // Check that user input is not empty
@@ -32,11 +53,16 @@ const Add = () => {
       setFeedback("All input fields must be filled in.");
       return;
     }
+
     const payload = {
       data: {
         title: title,
         description: description,
+        price: price,
+        date: date,
         ownedBy: getUserIdFromJwtOrUndefined(),
+        maxNumberOfParticipants: maxNumberOfParticipants,
+        difficulty: difficulty,
       },
     };
 
@@ -120,7 +146,7 @@ const Add = () => {
             const input = event.target.value;
             setTitle(input);
           }}
-          sx={{ width: 1 / 4, my: 2 }}
+          sx={{ my: 2 }}
         />
 
         <TextField
@@ -133,8 +159,86 @@ const Add = () => {
             const input = event.target.value;
             setDescription(input);
           }}
-          sx={{ width: 1 / 2, my: 2 }}
+          sx={{ my: 2 }}
         />
+        <FormControl required>
+          <FormLabel id="demo-controlled-radio-buttons-group">
+            Difficulty
+          </FormLabel>
+          <RadioGroup
+            row
+            difficulty={difficulty}
+            onChange={(event) => {
+              setDifficulty(event.target.value);
+            }}
+          >
+            <FormControlLabel value="easy" control={<Radio />} label="Easy" />
+            <FormControlLabel
+              value="medium"
+              control={<Radio />}
+              label="Medium"
+            />
+            <FormControlLabel value="hard" control={<Radio />} label="Hard" />
+            <FormControlLabel value="none" control={<Radio />} label="None" />
+          </RadioGroup>
+        </FormControl>
+
+        <FormGroup sx={{ margin: 1 }}>
+          <FormControlLabel
+            control={<Checkbox />}
+            label="Check to set a maximum number of participants"
+            onChange={(event) => {
+              const input = event.target.checked;
+              setMaxNumberOfParticipantsIsChecked(input);
+              setMaxNumberOfParticipants(null);
+            }}
+          />
+        </FormGroup>
+        {maxNumberOfParticipantsIsChecked && (
+          <TextField
+            type="number"
+            value={maxNumberOfParticipants}
+            label="Max number of participants"
+            variant="outlined"
+            onChange={(event) => {
+              const input = event.target.value;
+              if (isNaN(parseInt(input))) {
+                setMaxNumberOfParticipants(1);
+              } else {
+                setMaxNumberOfParticipants(parseInt(input));
+              }
+            }}
+            sx={{ width: 1 / 2, my: 2 }}
+          />
+        )}
+
+        {owner.isCommercial && (
+          <Box>
+            <TextField
+              required
+              label="Price"
+              variant="outlined"
+              onChange={(event) => {
+                const input = event.target.value;
+                setPrice(input);
+              }}
+              sx={{ width: 1 / 4, my: 2 }}
+            />
+          </Box>
+        )}
+
+        <Box>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              renderInput={(props) => <TextField {...props} />}
+              label="Enter date *"
+              value={date}
+              onChange={(newValue) => {
+                setDate(newValue);
+              }}
+            />
+          </LocalizationProvider>
+        </Box>
 
         <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
           <Typography variant="subtitle1" sx={{ fontSize: 18 }}>
@@ -165,7 +269,7 @@ const Add = () => {
 
         <Button
           onClick={handleSubmit}
-          sx={{ width: 1 / 6 }}
+          sx={{ my: 2 }}
           variant="contained"
           startIcon={<AddIcon />}
         >
@@ -183,7 +287,10 @@ export const getServerSideProps = async (context) => {
     return { redirect: { destination: "/", permanent: false } };
   }
 
-  return { props: {} };
+  const response = await fetch(`${BACKEND_URL}/api/users/${userId}`);
+  const owner = await response.json();
+
+  return { props: { owner } };
 };
 
 export default Add;

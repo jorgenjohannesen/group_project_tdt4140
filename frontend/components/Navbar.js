@@ -4,11 +4,9 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import Link from "next/link";
 import AddIcon from "@mui/icons-material/Add";
@@ -16,48 +14,53 @@ import { useEffect, useState } from "react";
 import { getUserIdFromJwtOrUndefined } from "../lib/jwt";
 import LoginIcon from "@mui/icons-material/Login";
 import { useRouter } from "next/router";
-
-const pages = [
-  // "Hikes",
-  // "Pricing",
-  // "Blog"
-];
+import axios from "axios";
+import { BACKEND_URL } from "../utils/constants";
+import firstLetter from "../utils/firstLetter";
 
 const Navbar = () => {
-  const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [userIsLoggedIn, setUserIsLogggedIn] = useState(false);
   const [userId, setUserId] = useState(undefined);
+  const [user, setUser] = useState(undefined);
 
   const settings = [
     { label: "Your profile", href: `/users/${userId}` },
-    // "Account",
     { label: "Logout", href: "/logout" },
   ];
 
   const router = useRouter();
   // Set userId when page loads
-  useEffect(() => {
+  useEffect(async () => {
     const userId = getUserIdFromJwtOrUndefined();
     setUserId(userId);
 
     if (userId) {
       setUserIsLogggedIn(true);
+
+      const getUser = async () => {
+        await axios
+          .get(`${BACKEND_URL}/api/users/${userId}`)
+          .then((response) => {
+            setUser(response.data);
+          })
+          .catch((error) => {
+            const errorMessage = error.response.data.error;
+
+            console.log(errorMessage);
+          });
+      };
+
+      getUser();
+
       return;
     }
 
     setUserIsLogggedIn(false);
   }, [router]);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
@@ -75,65 +78,22 @@ const Navbar = () => {
               component="div"
               sx={{
                 mr: 2,
-                display: { xs: "none", md: "flex" },
+                flexGrow: { xs: 1 },
+                display: "flex",
                 "&:hover": { cursor: "pointer", color: "darkgrey" },
               }}
+              data-cy="navbar-index-link"
             >
               HikeLink
             </Typography>
           </Link>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          {/* Let this Box be */}
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }} />
 
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
           <Box sx={{ pr: 4 }}>
             {userIsLoggedIn ? (
-              <Link href="/hikes/add">
+              <Link href="/hikes/add" data-cy="navbar-add-hike-link">
                 <Button
                   variant="contained"
                   sx={{
@@ -158,6 +118,7 @@ const Navbar = () => {
                       "&:hover": { backgroundColor: "white" },
                     }}
                     startIcon={<LoginIcon />}
+                    data-cy="navbar-login-page-button"
                   >
                     Login
                   </Button>
@@ -173,6 +134,7 @@ const Navbar = () => {
                       "&:hover": { backgroundColor: "white" },
                     }}
                     startIcon={<AddIcon />}
+                    data-cy="navbar-register-page-button"
                   >
                     Register
                   </Button>
@@ -181,11 +143,25 @@ const Navbar = () => {
             )}
           </Box>
 
-          {userId && (
+          {userId && user && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Box
+                    sx={{
+                      backgroundColor: "lightgray",
+                      borderRadius: "50%",
+                      overflow: "hidden",
+                      borderStyle: "solid",
+                      borderWidth: "1px",
+                      py: 1,
+                      px: 2,
+                    }}
+                  >
+                    <Typography variant="h6">
+                      {firstLetter(user.username).toUpperCase()}
+                    </Typography>
+                  </Box>
                 </IconButton>
               </Tooltip>
               <Menu
@@ -205,12 +181,14 @@ const Navbar = () => {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Link href={setting.href}>
-                      <Typography textAlign="center">
-                        {setting.label}
-                      </Typography>
-                    </Link>
+                  <MenuItem
+                    button
+                    component="a"
+                    href={setting.href}
+                    key={setting}
+                    onClick={handleCloseUserMenu}
+                  >
+                    {setting.label}
                   </MenuItem>
                 ))}
               </Menu>

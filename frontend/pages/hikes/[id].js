@@ -9,6 +9,7 @@ import { getUserIdFromJwtOrUndefined } from "../../lib/jwt";
 import { STATUS } from "../../utils/constants";
 import Typography from "@mui/material/Typography";
 import ClearIcon from "@mui/icons-material/Clear";
+import EditIcon from "@mui/icons-material/Edit";
 import { red, green, grey } from "@mui/material/colors";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -23,7 +24,9 @@ import capitalize from "../../utils/capitalize";
 import Link from "next/link";
 import router from "next/router";
 import placeholder from "/placeholder.jpg";
-
+import formatBasedOnParticipants from "../../utils/formatBasedOnParticipants";
+import parseDate from "../../utils/parseDate";
+import Grid from "@mui/material/Grid";
 
 const Hike = ({ hike: hikeInput }) => {
   const [userId, setUserId] = useState(undefined);
@@ -40,15 +43,20 @@ const Hike = ({ hike: hikeInput }) => {
       title,
       description,
       photo,
+      price,
+      date,
+      difficulty,
       participants: { data: participants },
       ownedBy: {
         data: {
+          attributes: { username, isCommercial },
           id: ownerId,
-          attributes: { username },
         },
       },
+      maxNumberOfParticipants,
     },
   } = hike;
+  console.log(hike);
 
   // Set userId when page loads
   useEffect(() => {
@@ -105,20 +113,26 @@ const Hike = ({ hike: hikeInput }) => {
         setStatusCode(response.status);
         setFeedback("Successfully deleted hike!");
 
-        // Wait for provided time, and then route user to the index page
         router.push("/");
       })
       .catch((error) => {
-        console.log(error);
         const errorMessage = error.response.data.error.message;
-
-        console.log(errorMessage);
         setStatusCode(error.response.status);
         setFeedback(`Oops! ${capitalize(errorMessage)}`);
       });
   };
 
   const handleSignUpForHike = async () => {
+    const reachedMaxNumberOfParticipants =
+      participants.length == maxNumberOfParticipants;
+
+    if (reachedMaxNumberOfParticipants) {
+      setStatusCode(STATUS.BAD_REQUEST);
+      setFeedback(
+        "The number of participants is already reached. You cannot sign up for this hike."
+      );
+      return;
+    }
     participantIds.push(userId);
 
     const payload = {
@@ -197,188 +211,187 @@ const Hike = ({ hike: hikeInput }) => {
             {feedback}
           </Alert>
         )}
-
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            sm: { flexDirection: "column" },
-          }}
-        >
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            {title && (
-              <Typography variant="h4" sx={{ p: 1 }}>
-                {title}
+      </Box>
+      <Grid
+        container
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
+        <Grid item xs={12}>
+          {title && (
+            <Typography variant="h4" sx={{ p: 1, textAlign: "center" }}>
+              {title}
+            </Typography>
+          )}
+        </Grid>
+        <Grid item sx={{ margin: "0 auto" }}>
+          {username && (
+            <Box sx={{ display: "flex" }}>
+              <Typography variant="subtitle1" sx={{ px: 1, width: "100%" }}>
+                Posted by:{" "}
               </Typography>
-            )}
-
-            <Box sx={{ display: "flex", flexDirection: "row", p: 1 }}>
-              {username && (
-                <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
-                  Posted by:{" "}
-                  <Link href={`/users/${ownerId}`}>
-                    <Typography
-                      variant="subtitle1"
-                      sx={{
-                        "&:hover": { color: "lightblue", cursor: "pointer" },
-                      }}
-                    >
-                      {username}
-                    </Typography>
-                  </Link>
-                </Typography>
-              )}
-
-              {userId && (
-                <Button
-                  onClick={
-                    userIsParticipating
-                      ? handleSignOffForHike
-                      : handleSignUpForHike
-                  }
+              <Link href={`/users/${ownerId}`}>
+                <Typography
+                  variant="subtitle1"
                   sx={{
-                    width: 1,
-                    p: 1,
-                    backgroundColor: userIsParticipating
-                      ? red[300]
-                      : green[300],
-                    color: "black",
-                    "&:hover": {
-                      backgroundColor: userIsParticipating
-                        ? red[200]
-                        : green[200],
-                      my: 2,
-                    },
+                    "&:hover": { color: "lightblue", cursor: "pointer" },
                   }}
-                  variant="contained"
-                  startIcon={userIsParticipating ? <ClearIcon /> : <AddIcon />}
                 >
-                  {userIsParticipating
-                    ? "Sign off for hike"
-                    : "Sign up for hike"}
-                </Button>
-              )}
-            </Box>
-
-            <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
-              {description && (
-                <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
-                  {description}
+                  {username}
                 </Typography>
-              )}
+              </Link>
             </Box>
-
-            {ownerId === userId && (
-              <Box>
-                <Link href={`/hikes/update/${hikeId}`}>
-                  <Button
-                    variant="contained"
-                    sx={{ m: 1 }}
-                    data-cy="submit-button"
-                  >
-                    Update
-                  </Button>
-                </Link>
-
-                <Button
-                  variant="contained"
-                  sx={{ m: 1 }}
-                  onClick={handleDeleteHike}
-                  data-cy="submit-button"
-                >
-                  Delete
-                </Button>
-              </Box>
-            )}
-          </Box>
-
-          <Box
+          )}
+        </Grid>
+        <Grid item xs={12} sx={{ margin: "0 auto" }}>
+          {date && (
+            <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
+              Date: {parseDate(date)}
+            </Typography>
+          )}
+        </Grid>
+        <Grid item xs={12} sx={{ margin: "0 auto" }}>
+          {difficulty !== "none" && difficulty && (
+            <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
+              Difficulty: {capitalize(difficulty)}
+            </Typography>
+          )}
+        </Grid>
+        <Grid item xs={12} sx={{ margin: "0 auto" }}>
+          {isCommercial && (
+            <Typography variant="subtitle1" sx={{ p: 1, width: "100%" }}>
+              Price: {price} kr
+            </Typography>
+          )}
+        </Grid>
+        <Grid item sx={{ margin: "0 auto" }}>
+          {ownerId === userId && (
+            <Link href={`/hikes/update/${hikeId}`}>
+              <Button
+                sx={{ my: 2 }}
+                variant="contained"
+                startIcon={<EditIcon />}
+              >
+                Update hike
+              </Button>
+            </Link>
+          )}
+        </Grid>
+        <Grid item xs={12} sx={{ my: 2 }}>
+          <Image src={photoUrl} height={photoHeight} width={photoWidth} />
+        </Grid>
+        <Grid item xs={12}>
+          {userId && date && new Date(date) > new Date() && (
+            <Button
+              onClick={
+                userIsParticipating ? handleSignOffForHike : handleSignUpForHike
+              }
+              sx={{
+                width: 1,
+                backgroundColor: userIsParticipating ? red[300] : green[300],
+                color: "black",
+                "&:hover": {
+                  backgroundColor: userIsParticipating ? red[200] : green[200],
+                },
+              }}
+              variant="contained"
+              startIcon={userIsParticipating ? <ClearIcon /> : <AddIcon />}
+            >
+              {userIsParticipating ? "Sign off for hike" : "Sign up for hike"}
+            </Button>
+          )}
+        </Grid>
+        <Grid item xs={12}>
+          <TableContainer
+            component={Paper}
             sx={{
               display: "flex",
               flexDirection: "column",
-              width: "60%",
+              my: 2,
             }}
           >
-            <Box sx={{ width: "80%", my: 2 }}>
-              <Image
-                src={photoUrl}
-                height={photoHeight}
-                width={photoWidth}
-                object-fit="cover"
-              />
-            </Box>
-            <TableContainer
-              component={Paper}
-              sx={{
-                width: "60%",
-                display: "flex",
-                flexDirection: "column",
-                my: 2,
-              }}
-            >
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell sx={{ fontWeight: "bold", fontSize: 20 }}>
-                      Participants
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>
-                      {participants && (
-                        <Box>
-                          {participants.map((participant) => {
-                            const {
-                              id: userId,
-                              attributes: { username },
-                            } = participant;
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell sx={{ fontWeight: "bold", fontSize: 20 }}>
+                    Participants (
+                    {formatBasedOnParticipants(
+                      participants,
+                      maxNumberOfParticipants
+                    )}
+                    )
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell>
+                    {participants && (
+                      <Box>
+                        {participants.map((participant, index) => {
+                          const {
+                            id: userId,
+                            attributes: { username },
+                          } = participant;
 
-                            return (
-                              <Link href={`/users/${userId}`}>
-                                <Typography
-                                  variant="subtitle1"
-                                  sx={{
-                                    "&:hover": {
-                                      color: "lightblue",
-                                      cursor: "pointer",
-                                    },
-                                  }}
-                                >
-                                  {username}
-                                </Typography>
-                              </Link>
-                            );
-                          })}
-                        </Box>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </TableContainer>
-
-            {userId && hike.attributes.ownedBy.data.id !== userId && (
-              <Button
-                onClick={handleReport}
-                sx={{
-                  width: 1 / 4,
-                  backgroundColor: grey[300],
-                  color: "black",
-                  "&:hover": {
-                    backgroundColor: grey[200],
-                  },
-                }}
-                variant="contained"
-                startIcon={<ReportIcon />}
+                          return (
+                            <Link href={`/users/${userId}`} key={index}>
+                              <Typography
+                                variant="subtitle1"
+                                sx={{
+                                  "&:hover": {
+                                    color: "lightblue",
+                                    cursor: "pointer",
+                                  },
+                                }}
+                              >
+                                {username}
+                              </Typography>
+                            </Link>
+                          );
+                        })}
+                      </Box>
+                    )}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
+        <Grid item xs={12} md={8} lg={8}>
+          {description && (
+            <Box>
+              <Typography
+                variant="h6"
+                sx={{ p: 1, my: 1, textAlign: "center" }}
               >
-                Report
-              </Button>
-            )}
-          </Box>
-        </Box>
-      </Box>
+                About this hike
+              </Typography>
+              <Typography variant="subtitle1" sx={{ p: 1 }}>
+                {description}
+              </Typography>
+            </Box>
+          )}
+        </Grid>
+        <Grid item xs={12}>
+          {userId && hike.attributes.ownedBy.data.id !== userId && (
+            <Button
+              onClick={handleReport}
+              sx={{
+                width: 1,
+                backgroundColor: grey[300],
+                color: "black",
+                "&:hover": {
+                  backgroundColor: grey[200],
+                },
+              }}
+              variant="contained"
+              startIcon={<ReportIcon />}
+            >
+              Report
+            </Button>
+          )}
+        </Grid>
+      </Grid>
     </Box>
   );
 };
