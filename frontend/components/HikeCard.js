@@ -8,13 +8,18 @@ import placeholder from "/placeholder.jpg";
 import { BACKEND_URL } from "../utils/constants";
 import Grid from "@mui/material/Grid";
 import { getUserIdFromJwtOrUndefined } from "../lib/jwt";
+import { blue, grey } from "@mui/material/colors";
+import Link from "next/link";
 
 const HikeCard = ({ hike, columns }) => {
   const {
     attributes: { title, photo, description, ownedBy },
     id,
   } = hike;
+
   const ownerId = ownedBy?.data?.id;
+  const isCommercial = ownedBy?.data?.attributes?.isCommercial;
+  const username = ownedBy?.data?.attributes?.username;
 
   let photoUrl = placeholder;
   let photoHeight = 450;
@@ -35,7 +40,14 @@ const HikeCard = ({ hike, columns }) => {
       md={columns?.md || 6}
       lg={columns?.lg || 6}
     >
-      <Card style={({ backgroundColor: "lightgrey" }, { margin: "10px" })}>
+      <Card
+        sx={{
+          backgroundColor: isCommercial ? blue[100] : "white",
+          margin: "10px",
+          boxShadow: 2,
+          "&:hover": { boxShadow: 3 },
+        }}
+      >
         <Image
           src={photoUrl}
           height={photoHeight}
@@ -43,57 +55,45 @@ const HikeCard = ({ hike, columns }) => {
           object-fit="cover"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography data-cy="title" gutterBottom variant="h5" component="div">
             {title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography data-cy="description" variant="body2" color="text.secondary">
             {description}
           </Typography>
         </CardContent>
-        <Grid container>
+        <Grid
+          container
+          sx={{
+            display: "flex",
+            alignItems: "center",
+          }}
+          spacing={12}
+        >
           <Grid item>
             <CardActions>
-              <Button href={`/hikes/${id}`}>
-                <a>Show hike</a>
-              </Button>
+              <Link href={`/hikes/${id}`}>
+                <Button
+                  sx={{
+                    color: blue[900],
+                    "&:hover": {
+                      backgroundColor: isCommercial ? "white" : grey[100],
+                    },
+                  }}
+                >
+                  Show hike
+                </Button>
+              </Link>
             </CardActions>
           </Grid>
 
-          {/* {userId == ownerId && (
+          {isCommercial && username && (
             <Grid item>
-              <CardContent>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={async () => {
-                    await axios
-                      .delete(`${BACKEND_URL}/api/hikes/${id}`)
-                      .then((response) => {
-                        // Wait for provided time, and then route user to the index page
-                        router.push("/");
-                      })
-                      .catch((error) => {});
-                  }}
-                  color="inherit"
-                >
-                  <DeleteIcon />
-                </IconButton>
-                <Link href={`/hikes/update/${id}`}>
-                  <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    color="inherit"
-                  >
-                    <UpdateIcon />
-                  </IconButton>
-                </Link>
-              </CardContent>
+              <Typography variant="subtitle1" fontWeight="bold">
+                A commercial hike by {username}
+              </Typography>
             </Grid>
-          )} */}
+          )}
         </Grid>
       </Card>
     </Grid>

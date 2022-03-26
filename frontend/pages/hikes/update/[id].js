@@ -17,6 +17,19 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import { getUserIdFromJwtOrUndefined } from "../../../lib/jwt";
+import {
+  FormGroup,
+  FormControl,
+  FormLabel,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
+  Checkbox,
+} from "@mui/material";
+import DatePicker from "@mui/lab/DatePicker";
+import DateAdapter from "@mui/lab/AdapterDateFns";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
 
 const Input = styled("input")({
   display: "none",
@@ -29,6 +42,17 @@ const UpdateHike = ({ hike }) => {
       title: hikeTitle,
       description: hikeDescription,
       photo: hikePhoto,
+      difficulty: hikeDifficulty,
+      price: hikePrice,
+      date: hikeDate,
+      maxNumberOfParticipants: hikeMaxNumberOfParticipants,
+      maxNumberOfParticipantsIsChecked: hikeMaxNumberOfParticipantsIsChecked,
+      ownedBy: {
+        data: {
+          attributes: { username, isCommercial },
+          id: ownerId,
+        },
+      },
     },
   } = hike;
 
@@ -36,11 +60,27 @@ const UpdateHike = ({ hike }) => {
 
   const [title, setTitle] = useState(hikeTitle);
   const [description, setDescription] = useState(hikeDescription);
+  const [price, setPrice] = useState(hikePrice);
   const [downloadedPhoto, _] = useState(hikePhoto);
   const [photoToUpload, setPhotoToUpload] = useState(undefined);
   const [statusCode, setStatusCode] = useState(-1);
   const [feedback, setFeedback] = useState(undefined);
   const [severity, setSeverity] = useState(undefined);
+  const [maxNumberOfParticipants, setMaxNumberOfParticipants] = useState(
+    hikeMaxNumberOfParticipants
+  );
+  const [width, setWidth] = useState(0);
+  const [date, setDate] = useState(hikeDate);
+  
+  useEffect(() => { // Get the correct windowwidth from the start
+    setWidth(window.innerWidth)
+  });
+
+  const [
+    maxNumberOfParticipantsIsChecked,
+    setMaxNumberOfParticipantsIsChecked,
+  ] = useState(hikeMaxNumberOfParticipantsIsChecked);
+  const [difficulty, setDifficulty] = useState(hikeDifficulty);
 
   const handleDeleteHike = async () => {
     await axios
@@ -69,6 +109,10 @@ const UpdateHike = ({ hike }) => {
       data: {
         title: title,
         description: description,
+        maxNumberOfParticipants: maxNumberOfParticipants,
+        maxNumberOfParticipantsIsChecked: maxNumberOfParticipantsIsChecked,
+        date: date,
+        difficulty: difficulty,
       },
     };
 
@@ -135,6 +179,12 @@ const UpdateHike = ({ hike }) => {
     }
   }, [statusCode]);
 
+  useEffect(() => {
+    const handleWindowResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleWindowResize);
+    return () => window.removeEventListener("resize", handleWindowResize);
+  });
+
   return (
     <Box
       sx={{
@@ -154,12 +204,15 @@ const UpdateHike = ({ hike }) => {
         )}
 
         <Box
-          sx={{
+          sx={ (width > 700) ? {
             display: "flex",
-            justifyContent: "space-evenly",
-            sm: { flexDirection: "column" },
+            flexDirection: "row",
+          } : {
+            display: "flex",
+            flexDirection: "column-reverse",
           }}
         >
+
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Typography variant="h4" sx={{ p: 1 }}>
               Update hike
@@ -188,6 +241,108 @@ const UpdateHike = ({ hike }) => {
               }}
               sx={{ my: 2 }}
             />
+
+            <FormControl>
+              <FormLabel id="demo-controlled-radio-buttons-group">
+                Difficulty
+              </FormLabel>
+              <RadioGroup
+                row
+                defaultValue={hikeDifficulty}
+                difficulty={hikeDifficulty}
+                onChange={(event) => {
+                  setDifficulty(event.target.value);
+                  console.log(difficulty);
+                }}
+              >
+                <FormControlLabel
+                  value="easy"
+                  control={<Radio />}
+                  label="Easy"
+                />
+                <FormControlLabel
+                  value="medium"
+                  control={<Radio />}
+                  label="Medium"
+                />
+                <FormControlLabel
+                  value="hard"
+                  control={<Radio />}
+                  label="Hard"
+                />
+                <FormControlLabel
+                  value="none"
+                  control={<Radio />}
+                  label="None"
+                />
+              </RadioGroup>
+            </FormControl>
+
+            {isCommercial && (
+              <Box>
+                <TextField
+                  required
+                  label="Price"
+                  variant="outlined"
+                  onChange={(event) => {
+                    const input = event.target.value;
+                    setPrice(input);
+                  }}
+                  sx={{ width: 1 / 4, my: 2 }}
+                />
+              </Box>
+            )}
+
+            {!isNaN(maxNumberOfParticipants) && (
+              <Box>
+                <FormGroup sx={{ margin: 1 }}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={maxNumberOfParticipantsIsChecked} />
+                    }
+                    label="Check to set a maximum number of participants"
+                    onChange={(event) => {
+                      const input = event.target.checked;
+                      setMaxNumberOfParticipantsIsChecked(input);
+                      if (!input) {
+                        setMaxNumberOfParticipants(null);
+                      }
+                    }}
+                  />
+                </FormGroup>
+                {maxNumberOfParticipantsIsChecked && (
+                  <TextField
+                    type="number"
+                    value={maxNumberOfParticipants}
+                    label="Max number of participants"
+                    variant="outlined"
+                    onChange={(event) => {
+                      const input = event.target.value;
+                      if (isNaN(parseInt(input))) {
+                        setMaxNumberOfParticipants(1);
+                      } else {
+                        setMaxNumberOfParticipants(parseInt(input));
+                      }
+                    }}
+                    sx={{ width: 1 / 2, my: 2 }}
+                  />
+                )}
+              </Box>
+            )}
+
+            <Box>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  renderInput={(props) => <TextField {...props} />}
+                  label="Enter date"
+                  value={date}
+                  onChange={(newValue) => {
+                    setDate(newValue);
+                  }}
+                />
+              </LocalizationProvider>
+            </Box>
+
             <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
               <Typography variant="subtitle1" sx={{ fontSize: 18 }}>
                 Click the camera to upload an image
@@ -236,12 +391,19 @@ const UpdateHike = ({ hike }) => {
           </Box>
 
           {downloadedPhoto.data && (
-            <Box sx={{ px: 4, width: "60%" }}>
+            <Box sx={ (width > 700) ? {
+              px: 4,
+              width: "60%",
+              marginBottom: "0"
+            } : { 
+              width: "100%",
+              marginBottom: "1em"
+            }}>
               <Image
                 src={`${BACKEND_URL}${downloadedPhoto.data.attributes.url}`}
-                height={downloadedPhoto.data.attributes.height}
+                height={ (width > 700) ? downloadedPhoto.data.attributes.height : "250px"}
                 width={downloadedPhoto.data.attributes.width}
-                object-fit="cover"
+                objectFit="cover"
               />
             </Box>
           )}
