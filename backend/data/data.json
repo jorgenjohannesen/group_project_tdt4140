@@ -9,7 +9,8 @@
             ],
             "ownedBy": 1,
             "date": "2022-04-11T10:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "easy"
         },
         {
             "title": "Kalalau Trail",
@@ -25,7 +26,8 @@
             ],
             "ownedBy": 1,
             "date": "2022-04-17T13:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "easy"
         },
         {
             "title": "Camino Primitivo, Camino de Santiago",
@@ -37,7 +39,8 @@
             ],
             "ownedBy": 2,
             "date": "2022-05-10T06:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "hard"
         },
         {
             "title": "South Maroon Peak",
@@ -49,7 +52,8 @@
             ],
             "ownedBy": 2,
             "date": "2022-05-05T09:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "easy"
         },
         {
             "title": "Lares Trek",
@@ -60,7 +64,8 @@
             ],
             "ownedBy": 3,
             "date": "2022-05-14T09:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "hard"
         },
         {
             "title": "Paine Circuit Trek",
@@ -79,11 +84,12 @@
             ],
             "ownedBy": 7,
             "date": "2022-05-02T14:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "medium"
         },
         {
             "title": "Greenstone Ridge Trail",
-            "description": "This is one of the few hikes in the U.S. where it’s entirely possible to see more moose than people, partially because it requires a ferry to even reach the trailhead on the western edge of the least visited national park in the lower 48. Once you’ve arrived at Windigo Harbor, you’ll climb 1,200 feet through lush green boreal forest, topping out at bald ridges before descending to pebble beaches scattered with the semiprecious chlorastrolite for which the trail is named.",
+            "description": "This is one of the few hikes in the U.S. where it’s entirely possible to see more moose than people, partially because it requires a ferry to even reach the trailhead on the western edge of the least visited national park in the lower 48. Once you’ve arrived at Windigo Harbor, you’ll climb 1,200 feet through lush green boreal forest.",
             "photo": 7,
             "participants": [
                 8,
@@ -91,7 +97,8 @@
             ],
             "ownedBy": 6,
             "date": "2022-07-02T14:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "easy"
         },
         {
             "title": "Buckskin Gulch to Paria Canyon via Wire Pass Trailhead",
@@ -103,7 +110,8 @@
             ],
             "ownedBy": 4,
             "date": "2022-07-17T18:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "medium"
         },
         {
             "title": "Tour du Mont Blanc",
@@ -117,7 +125,8 @@
             ],
             "ownedBy": 3,
             "date": "2022-07-17T09:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "easy"
         },
         {
             "title": "Old Rag",
@@ -128,7 +137,8 @@
             ],
             "ownedBy": 10,
             "date": "2022-09-01T08:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "hard"
         },
         {
             "title": "Chogoria Route to Point Lenana Peak",
@@ -142,7 +152,8 @@
             ],
             "ownedBy": 1,
             "date": "2022-09-02T08:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "easy"
         },
         {
             "title": "Fisherfields Round",
@@ -151,7 +162,8 @@
             "participants": [],
             "ownedBy": 2,
             "date": "2022-09-03T08:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "medium"
         },
         {
             "title": "Grand Canyon Rim-to-Rim",
@@ -160,16 +172,18 @@
             "participants": [],
             "ownedBy": 3,
             "date": "2022-09-04T08:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "medium"
         },
         {
             "title": "Mount Washington via Tuckerman Ravine",
-            "description": "First climbed in 1692 by Darby Field and his Abenaki guides, the summit of 6,288-foot Mount Washington is far from an unknown entity. It is, however, a rite of passage for aspiring East Coast mountaineers and deceivingly dangerous, with colder temperatures than Washington’s Mount Rainier and the highest wind speed ever recorded in the United States at 231 miles per hour. Starting at Pinkham Notch Visitor Center, the trail meanders through mixed hardwood forest and over Cutler River bridges before opening up to the glacial cirque of Tuckerman Ravine and a 1.8-mile, above-tree-line scramble over scree to the summit.",
+            "description": "First climbed in 1692 by Darby Field and his Abenaki guides, the summit of 6,288-foot Mount Washington is far from an unknown entity. It is, however, a rite of passage for aspiring East Coast mountaineers and deceivingly dangerous.",
             "photo": 14,
             "participants": [],
             "ownedBy": 4,
             "date": "2022-09-05T08:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "hard"
         },
         {
             "title": "Panorama Ridge",
@@ -182,7 +196,8 @@
             ],
             "ownedBy": 5,
             "date": "2022-09-06T08:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "easy"
         },
         {
             "title": "Three Capes Track",
@@ -193,7 +208,8 @@
             ],
             "ownedBy": 6,
             "date": "2022-04-11T10:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "hard"
         },
         {
             "title": "Teton Crest Trail",
@@ -212,106 +228,43 @@
             ],
             "ownedBy": 7,
             "date": "2022-11-11T15:00:00+0100",
-            "maxNumberOfParticipants": 10
-        },
-        {
-            "title": "Superior Hiking Trail",
-            "description": "This steep, rocky, narrow trail is fun.",
-            "photo": 18,
-            "participants": [
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                9
-            ],
-            "ownedBy": 8,
-            "date": "2022-11-20T15:00:00+0100",
-            "maxNumberOfParticipants": 10
-        },
-        {
-            "title": "Lycian Way",
-            "description": "Travel through Greek, Roman, and Christian history on a 29-day route that stretches along Turkey’s southern Tekke Peninsula. Comprised of a stone road, mule paths, and footpaths, the well-marked way meanders along the mountainous coastline, dipping into centuries-old ruins and ancient cities along the way. ",
-            "photo": 19,
-            "participants": [
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7
-            ],
-            "ownedBy": 9,
-            "date": "2022-11-21T17:00:00+0100",
-            "maxNumberOfParticipants": 10
-        },
-        {
-            "title": "Appalachian Trail",
-            "description": "Of the Appalachian Trail’s 2,200 miles, there’s something extra magical about the 72-mile section through Great Smoky Mountains National Park. It may be the way the mist clings to the ancient ridges and rocky outcrops; the abundance of flaming azaleas, lupines, and rhododendrons; or the knowledge that 6,625-foot Clingman’s Dome is the highest summit along the entire AT. ",
-            "photo": 20,
-            "participants": [
-                2,
-                9
-            ],
-            "ownedBy": 10,
-            "date": "2022-12-24T18:00:00+0100",
-            "maxNumberOfParticipants": 10
-        },
-        {
-            "title": "Whale Trail",
-            "description": "Between June and November its perfect.",
-            "photo": 21,
-            "participants": [
-                2,
-                3,
-                4,
-                5
-            ],
-            "ownedBy": 1,
-            "date": "2022-12-24T19:00:00+0100",
-            "maxNumberOfParticipants": 10
-        },
-        {
-            "title": "Chilkoot Trail",
-            "description": "Though it’s just a fraction of the original 600-mile trek to the Klondike, the first 33-mile section of the Chilkoot—which starts in the Alaskan ghost town of Dyea, summits 3,759-foot Chilkoot Pass, and ends at Bennett Lake, British Columbia—gives hikers a taste of the wild vistas and extreme hardships prospectors experienced during the gold fever of the late 1800s.",
-            "photo": 22,
-            "participants": [],
-            "ownedBy": 2,
-            "date": "2022-03-10T09:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "easy"
         },
         {
             "title": "Half Dome (Ving) ",
             "description": "As beloved an American icon as apple pie. ",
-            "photo": 23,
+            "photo": 18,
             "participants": [
                 1
             ],
             "ownedBy": 12,
             "date": "2022-03-01T09:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "hard",
+            "price": "1999"
         },
         {
             "title": "Kepler Track (Tui) ",
             "description": "Most of New Zealand’s nine Great Walks are offshoots of ancient Maori trade routes or more recent paths built by pioneers. ",
-            "photo": 24,
+            "photo": 19,
             "participants": [],
             "ownedBy": 11,
             "date": "2022-03-02T09:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "easy",
+            "price": "50"
         },
         {
             "title": "Everest Base (Den Norske Turforeningen)",
             "description": "Every year the restrictions on visiting the world’s highest mountain get tighter—and that’s a good thing.",
-            "photo": 25,
+            "photo": 20,
             "participants": [],
             "ownedBy": 13,
             "date": "2022-03-03T09:00:00+0100",
-            "maxNumberOfParticipants": 10
+            "maxNumberOfParticipants": 10,
+            "difficulty": "medium",
+            "price": "220"
         }
     ],
     "listOfUsers": [
@@ -324,8 +277,8 @@
             "provider": "local",
             "role": 1,
             "description": "Possessive, Amusing, Communicative and People-oriented.",
-            "profilePicture" : 26,
-            "profilePictureFileName" : "26"
+            "profilePicture" : 21,
+            "profilePictureFileName" : "21"
         },
         {
             "confirmed": true,
@@ -336,8 +289,8 @@
             "provider": "local",
             "role": 1,
             "description": "Reassuring, Diplomatic, Average mannered and Modest.",
-            "profilePicture" : 27,
-            "profilePictureFileName" : "27"
+            "profilePicture" : 22,
+            "profilePictureFileName" : "22"
         },
         {
             "confirmed": true,
@@ -348,8 +301,8 @@
             "provider": "local",
             "role": 1,
             "description": "Quick to judge, Vulgar and Ambitious.",
-            "profilePicture" : 28,
-            "profilePictureFileName" : "28"
+            "profilePicture" : 23,
+            "profilePictureFileName" : "23"
         },
         {
             "confirmed": true,
@@ -360,8 +313,8 @@
             "provider": "local",
             "role": 1,
             "description": "Impulsive, Abstract and Truthful.",
-            "profilePicture" : 29,
-            "profilePictureFileName" : "29"
+            "profilePicture" : 24,
+            "profilePictureFileName" : "24"
         },
         {
             "confirmed": true,
@@ -372,8 +325,8 @@
             "provider": "local",
             "role": 1,
             "description": "A lone worker, Faithful, Emotionally aware, Cannot tolerate conflict and Spontaneous.",
-            "profilePicture" : 30,
-            "profilePictureFileName" : "30"
+            "profilePicture" : 25,
+            "profilePictureFileName" : "25"
         },
         {
             "confirmed": true,
@@ -384,8 +337,8 @@
             "provider": "local",
             "role": 1,
             "description": "Compulsive and Stressed.",
-            "profilePicture" : 31,
-            "profilePictureFileName" : "31"
+            "profilePicture" : 26,
+            "profilePictureFileName" : "26"
         },
         {
             "confirmed": true,
@@ -396,8 +349,8 @@
             "provider": "local",
             "role": 1,
             "description": "Athletic, Quick to judge, A leader (when necessary) and Considerate.",
-            "profilePicture" : 32,
-            "profilePictureFileName" : "32"
+            "profilePicture" : 27,
+            "profilePictureFileName" : "27"
         },
         {
             "confirmed": true,
@@ -408,8 +361,8 @@
             "provider": "local",
             "role": 1,
             "description": "Sincere, Neither selfish nor selfless and Brash.",
-            "profilePicture" : 33,
-            "profilePictureFileName" : "33"
+            "profilePicture" : 28,
+            "profilePictureFileName" : "28"
         },
         {
             "confirmed": true,
@@ -420,8 +373,8 @@
             "provider": "local",
             "role": 1,
             "description": "Fast-paced, Quick to judge, Cowardly and Compliant.",
-            "profilePicture" : 34,
-            "profilePictureFileName" : "34"
+            "profilePicture" : 29,
+            "profilePictureFileName" : "29"
         },
         {
             "confirmed": true,
@@ -432,8 +385,8 @@
             "provider": "local",
             "role": 1,
             "description": "Reckless, Highly rebellious, Non-judgmental and Dutiful.",
-            "profilePicture" : 35,
-            "profilePictureFileName" : "35"
+            "profilePicture" : 30,
+            "profilePictureFileName" : "30"
         },       
         {
             "confirmed": true,
@@ -444,9 +397,9 @@
             "provider": "local",
             "role": 1,
             "description": "A week filled with experiences or a week without any plans. It is safe to travel with TUI - we take care of you before, during and after your holiday. Best selection of trips.",
-            "profilePicture" : 36,
+            "profilePicture" : 31,
             "isCommercial": true,
-            "profilePictureFileName" : "36"
+            "profilePictureFileName" : "31"
         }, 
         {
             "confirmed": true,
@@ -457,22 +410,22 @@
             "provider": "local",
             "role": 1,
             "description": "Ving is Norway's largest tour operator with trips to more than 350 destinations in over 60 countries. We want to give you the best weeks of the year when you travel with us.",
-            "profilePicture" : 37,
+            "profilePicture" : 32,
             "isCommercial": true,
-            "profilePictureFileName" : "37"
+            "profilePictureFileName" : "32"
         },       
         {
             "confirmed": true,
             "blocked": false,
-            "username": "Den Norske Turistforeningen",
+            "username": "dnt",
             "email": "dnt@mail.com",
             "password": "QRs0AAsy",
             "provider": "local",
             "role": 1,
             "description": "The Norwegian Tourist Association (DNT) is Norway's largest outdoor organization. The association was founded on 21 January 1868 on the initiative of Consul Thomas Johannessen Heftye and Captain Hans Hagerup Krag. In the beginning, the association was led by the aforementioned Heftye (chairman) and Krag, as well as Colonel Fredrik Næser, Professor Halvor Rasch, and assessor W. Erichsen.",
-            "profilePicture" : 38,
+            "profilePicture" : 33,
             "isCommercial": true,
-            "profilePictureFileName" : "38"
+            "profilePictureFileName" : "33"
         }
     ]
 }
