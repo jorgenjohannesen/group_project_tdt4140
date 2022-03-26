@@ -9,6 +9,7 @@ import { getUserIdFromJwtOrUndefined } from "../../lib/jwt";
 import { STATUS } from "../../utils/constants";
 import Typography from "@mui/material/Typography";
 import ClearIcon from "@mui/icons-material/Clear";
+import EditIcon from "@mui/icons-material/Edit";
 import { red, green, grey } from "@mui/material/colors";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -25,7 +26,7 @@ import router from "next/router";
 import placeholder from "/placeholder.jpg";
 import formatBasedOnParticipants from "../../utils/formatBasedOnParticipants";
 import parseDate from "../../utils/parseDate";
-import Grid from "@mui/material/Grid"
+import Grid from "@mui/material/Grid";
 
 const Hike = ({ hike: hikeInput }) => {
   const [userId, setUserId] = useState(undefined);
@@ -55,7 +56,7 @@ const Hike = ({ hike: hikeInput }) => {
       maxNumberOfParticipants,
     },
   } = hike;
-  console.log(hike)
+  console.log(hike);
 
   // Set userId when page loads
   useEffect(() => {
@@ -211,8 +212,11 @@ const Hike = ({ hike: hikeInput }) => {
           </Alert>
         )}
       </Box>
-      <Grid container sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <Grid item xs={12} >
+      <Grid
+        container
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
+        <Grid item xs={12}>
           {title && (
             <Typography variant="h4" sx={{ p: 1, textAlign: "center" }}>
               {title}
@@ -259,39 +263,40 @@ const Hike = ({ hike: hikeInput }) => {
             </Typography>
           )}
         </Grid>
+        <Grid item sx={{ margin: "0 auto" }}>
+          {ownerId === userId && (
+            <Link href={`/hikes/update/${hikeId}`}>
+              <Button
+                sx={{ my: 2 }}
+                variant="contained"
+                startIcon={<EditIcon />}
+              >
+                Update hike
+              </Button>
+            </Link>
+          )}
+        </Grid>
         <Grid item xs={12} sx={{ my: 2 }}>
-          <Image
-            src={photoUrl}
-            height={photoHeight}
-            width={photoWidth}
-          />
+          <Image src={photoUrl} height={photoHeight} width={photoWidth} />
         </Grid>
         <Grid item xs={12}>
-          {userId && date && (new Date(date) > new Date()) && (
+          {userId && date && new Date(date) > new Date() && (
             <Button
               onClick={
-                userIsParticipating
-                  ? handleSignOffForHike
-                  : handleSignUpForHike
+                userIsParticipating ? handleSignOffForHike : handleSignUpForHike
               }
               sx={{
                 width: 1,
-                backgroundColor: userIsParticipating
-                  ? red[300]
-                  : green[300],
+                backgroundColor: userIsParticipating ? red[300] : green[300],
                 color: "black",
                 "&:hover": {
-                  backgroundColor: userIsParticipating
-                    ? red[200]
-                    : green[200],
+                  backgroundColor: userIsParticipating ? red[200] : green[200],
                 },
               }}
               variant="contained"
               startIcon={userIsParticipating ? <ClearIcon /> : <AddIcon />}
             >
-              {userIsParticipating
-                ? "Sign off for hike"
-                : "Sign up for hike"}
+              {userIsParticipating ? "Sign off for hike" : "Sign up for hike"}
             </Button>
           )}
         </Grid>
@@ -355,7 +360,10 @@ const Hike = ({ hike: hikeInput }) => {
         <Grid item xs={12} md={8} lg={8}>
           {description && (
             <Box>
-              <Typography variant="h6" sx={{ p: 1, my: 1, textAlign: "center" }}>
+              <Typography
+                variant="h6"
+                sx={{ p: 1, my: 1, textAlign: "center" }}
+              >
                 About this hike
               </Typography>
               <Typography variant="subtitle1" sx={{ p: 1 }}>
@@ -384,7 +392,7 @@ const Hike = ({ hike: hikeInput }) => {
           )}
         </Grid>
       </Grid>
-    </Box >
+    </Box>
   );
 };
 
